@@ -1,0 +1,181 @@
+﻿.min-vh-500{
+
+    min-height:500px;
+}
+
+input[data-elem-type=password] {
+    padding-right: 40px;
+}
+
+.showPasswordLink {
+    display: block;
+    position: absolute;
+    top: calc(50% + 2px);
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    background-image: url("/Content/custom/img/icon-secure.png");
+    background-size: 100% auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.75
+    }
+}
+.avatar-upload,
+.resellerLogo-upload,
+.trademarkLogo-upload,
+.productPic-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 0 auto 0 auto;
+
+    .avatar-edit,
+    .resellerLogo-edit,
+    .trademarkLogo-edit {
+        position: absolute;
+        right: 25px;
+        z-index: 1;
+        top: 10px;
+
+        input {
+            display: none;
+
+            & + label {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                margin-bottom: 0;
+                border-radius: 100%;
+                background: #ffffff;
+                border: 1px solid transparent;
+                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                cursor: pointer;
+                font-weight: normal;
+                transition: all 0.2s ease-in-out;
+
+                &:hover {
+                    background: #f1f1f1;
+                    border-color: #d6d6d6;
+                }
+
+                &::after {
+                    content: "\f040";
+                    font-family: "FontAwesome";
+                    color: #757575;
+                    position: absolute;
+                    top: 10px;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    margin: auto;
+                }
+            }
+        }
+    }
+
+    .avatar-preview,
+    .resellerLogo-preview,
+    .trademarkLogo-preview,
+    .productPic-preview {
+        width: 192px;
+        height: 192px;
+        position: relative;
+        border-radius: 100%;
+        border: 6px solid #f8f8f8;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+
+        & > div {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}
+
+.select2-white {
+    & + .select2-container {
+        .select2-selection--single,
+        .select2-selection__rendered {
+            color: #555;
+            border-color: #ddd;
+            background-color: #fff;
+        }
+    }
+}
+
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    li {
+        display: flex;
+        align-items: center;
+        margin: 0 0 5px 0;
+        padding: 0 0 0 15px;
+        height: 40px;
+        background-color: #fff;
+        border: 1px solid #f0f0f0;
+
+        &:before {
+            content: "≡";
+            position: absolute;
+            right: 20px;
+            display: block;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            opacity: 0.3;
+            transition: opacity 0.4s;
+        }
+
+        &:hover {
+            background-color: #f9f9f9;
+
+            &:before {
+                opacity: 1;
+            }
+        }
+
+        &.ui-sortable-helper {
+            background-color: #4a89dc;
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        &.ui-state-highlight {
+            height: 40px;
+            background-color: #fffed2;
+            border: 1px solid #fffed2;
+        }
+    }
+}
+
+
+
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .avatar-upload,
+    .resellerLogo-upload,
+    .trademarkLogo-upload,
+    .productPic-upload {
+        margin: 0 0 0 35px;
+    }
+}
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}

@@ -1,0 +1,150 @@
+﻿$margin-top-list: 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50;
+
+// Media based margin top exports
+@each $val in $margin-top-list {
+    .m-xs-#{$val} {
+        margin: #{$val}px;
+    }
+}
+
+@each $val in $margin-top-list {
+    .mt-xs-#{$val} {
+        margin-top: #{$val}px;
+    }
+}
+
+.m-xs-c {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ml-xs-a {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.mr-xs-a {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    @each $val in $margin-top-list {
+        .m-sm-#{$val} {
+            margin: #{$val}px;
+        }
+    }
+    
+    @each $val in $margin-top-list {
+        .mt-sm-#{$val} {
+            margin-top: #{$val}px;
+        }
+    }
+
+    .m-sm-c {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ml-sm-a {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .mr-sm-a {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    @each $val in $margin-top-list {
+        .m-md-#{$val} {
+            margin: #{$val}px;
+        }
+    }
+    
+    @each $val in $margin-top-list {
+        .mt-md-#{$val} {
+            margin-top: #{$val}px;
+        }
+    }
+
+    .m-md-c {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ml-md-a {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .mr-md-a {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    @each $val in $margin-top-list {
+        .m-lg-#{$val} {
+            margin: #{$val}px;
+        }
+    }
+
+    @each $val in $margin-top-list {
+        .mt-lg-#{$val} {
+            margin-top: #{$val}px;
+        }
+    }
+
+    .m-lg-c {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ml-lg-a {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .mr-lg-a {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+/* Extra large devices (large desktops, 1400px and up) */
+@media (min-width: 1400px) {
+    @each $val in $margin-top-list {
+        .m-xl-#{$val} {
+            margin: #{$val}px;
+        }
+    }
+
+    @each $val in $margin-top-list {
+        .mt-xl-#{$val} {
+            margin-top: #{$val}px;
+        }
+    }
+
+    .m-xl-c {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ml-xl-a {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .mr-xl-a {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}

@@ -1,0 +1,614 @@
+﻿@model Headstone.AI.Models.ViewModels.CategoryDetailsViewModel
+@using Headstone.Service.Helpers
+
+@{
+    ViewBag.Title = "Kategori Detayları";
+    ViewBag.CssPageName = "gallery-page";
+    Session["PageName"] = "categories";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/Select2/css/core.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/paddings.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/Jquery.Validation/Validation.css" />
+
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/messages/kendo.messages.tr-TR.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/cultures/kendo.culture.tr-TR.min.js"></script>
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    @*Check for errors*@
+    @if (Model.Errors.Any())
+    {
+        foreach (var error in Model.Errors)
+        {
+            <div class="row" id="error">@error</div>
+        }
+    }
+    <div class="mb20">
+        <h4>@Model.Category.Name</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                @*<p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Tab Structure -->
+    <div class="tab-block mb25">
+        <!-- Tab Navi Items -->
+        <ul class="nav nav-tabs tabs-border">
+            <li class="active">
+                <a href="#tab1_1" data-toggle="tab">Temel Bilgiler</a>
+            </li>
+            <li>
+                <a href="#tab1_2" data-toggle="tab">Alt Kategoriler</a>
+            </li>
+            <li>
+                <a href="#tab1_3" data-toggle="tab">Kategorinin Ürünleri</a>
+            </li>
+            @*<li>
+                    <a href="#tab1_4" data-toggle="tab">Özel Sıralama</a>
+                </li>*@
+            @*<li>
+                    <a href="#tab1_5" data-toggle="tab">Vitrin Yönetimi</a>
+                </li>
+                <li>
+                    <a href="#tab1_6" data-toggle="tab">İçerik Yönetimi</a>
+                </li>
+                <li>
+                    <a href="#tab1_7" data-toggle="tab">Pazarlama Yönetimi</a>
+                </li>*@
+            <li>
+                <a href="#tab1_8" data-toggle="tab">Görseller</a>
+            </li>
+        </ul>
+        <!-- End of Tab Navi Items -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Details Tab -->
+            <div id="tab1_1" class="tab-pane active">
+                <div class="row mb25">
+                    <div class="col-xl-6 col-md-8">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td class="w150 fw600">Kategori İsmi</td>
+                                    <td>@Model.Category.Name</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Üst Kategori</td>
+                                    <td>@(Model.Category.Parent?.Name)</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600"> Kategorinin Durumu</td>
+                                    @if (Model.Category.Status ==Headstone.MetaData.API.Models.EntityStatus.Active)
+                                    {
+                                        <td>@Model.Category.StatusName</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@Model.Category.StatusName</td>
+                                    }
+
+                                </tr>
+
+                                @*<tr>
+                                        <td class="fw600">ERP Kodu</td>
+                                        <td>@Model.Category.ERPCode</td>
+                                    </tr>*@
+                                <tr>
+                                    <td class="fw600" style="vertical-align:top;">Açıklama</td>
+                                    <td class="text-muted">
+                                        <p>@Model.Category.ShortDescription</p>
+                                        <p></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Tipi</td>
+                                    <td>@Model.Category.Type</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Gösterim</td>
+                                    <td class="admin-form">
+                                        <label class="switch switch-success switch-inline">
+                                            <input id="categoryStatus" type="checkbox" onchange="changeStatus()" checked="" name="Status">
+                                            <label for="categoryStatus"></label>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div hidden id="statusResponse" class="row mb20">
+                            <div class="col-xs-6">
+                                <div class="panel-alert bg-success">
+                                    <div id="responseText" class="alert alert-success" role="alert">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input hidden id="status" value="@Model.Category.Status" />
+                    </div>
+                </div>
+
+                @*<div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20" data-toggle="modal" data-target="#categoryDetailModal">Düzenle</button>
+                        </div>
+                    </div>*@
+            </div>
+            <!-- End of Details Tab -->
+            <!-- Subcategories Tab -->
+            <div id="tab1_2" class="tab-pane">
+                <div class="row">
+                    <div class="col-xl-6 col-md-8">
+                        <table class="table table-hover">
+                            <tbody>
+                                @foreach (var subCategory in Model.Category.Children)
+                                {
+                                    <tr>
+                                        <td class="fw600 w100"><a href="/categories/details/@subCategory.CategoryId">@subCategory.CategoryId</a></td>
+                                        <td>@subCategory.Name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Subcategories Tab -->
+            <!-- Category Products Tab -->
+            <div id="tab1_3" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        @(Html.Kendo().Grid<Headstone.AI.Models.ViewModels.ProductViewModel>().Name("Categories").Columns(cols =>
+                    {
+                        cols.Bound(u => u.ProductId).Title("Urun Id").ClientTemplate("<a href='" + Url.Action("Details", "Products") + "/#=ProductId#'>#=ProductId#</a>"); ;
+                        cols.Bound(u => u.Name).Title("Urun Adı");
+                        cols.Bound(u => u.ShortDescription).Title("Aciklama");
+                        cols.Bound(u => u.StatusName).Title("Durum");
+                    })
+               .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("GetProductsByCategory", "headstone", new { categoryId = Model.Category.CategoryId })).PageSize(50))
+               .Groupable()
+               .Filterable()
+               .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 25, 50, 100, 1000 }).ButtonCount(5))
+               .Sortable()
+                        )
+                    </div>
+                </div>
+            </div>
+            <!-- End of Category Products Tab -->
+            <!-- Custom Ranking Tab -->
+            @*<div id="tab1_4" class="tab-pane">
+                    <div class="row mw600">
+                        <div class="col-md-12 pt15 pl20">
+                            <p class="mb30">
+                                ABC kategorisine ait ürünlerin sıralamasını değiştirmek için aşağıdaki satırları sürükleyip dilediğiniz sırada bırakabilirsiniz. Sürükleme
+                                işlemi sonlandırıldığında, sıralama otomatik olarak kaydedilecektir.
+                                --Kendo Listing--
+                            </p>
+
+                            <ul id="sortable">
+                                @foreach (var product in Model.Products)
+                                {
+                                    <li data-id="@product.ProductId">@product.Name</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
+            <!-- End of Custom Ranking Tab -->
+            <!-- Showcase Management Tab -->
+            @*<div id="tab1_5" class="tab-pane">
+                    <div class="row mw600">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>*@
+            <!-- End of Showcase Management Tab -->
+            <!-- Content Management Tab -->
+            @*<div id="tab1_6" class="tab-pane">
+                    <div class="row mw600">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>*@
+            <!-- End of Content Management Tab -->
+            <!-- Marketing Management Tab -->
+            @*<div id="tab1_7" class="tab-pane">
+                    <div class="row mw600">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>*@
+            <!-- End of Marketing Management Tab -->
+            <!-- Pictures Management Tab -->
+            <div id="tab1_8" class="tab-pane min-vh-500">
+
+                <div class="col-md-12">
+                    <div id="mix-container">
+                        <div>
+                            <!--Example image-->
+                            @*<div class="mix label1 folder1">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/1.jpg" class="img-responsive" title="lost_typewritter.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>lost_typewritter.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-info ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label2 folder2">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/2.jpg" class="img-responsive" title="stairs-to_soul.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>stairs-to_soul.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-alert ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label3 folder3">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/3.jpg" class="img-responsive" title="why_are_locks.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>why_are_locks.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-danger ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label1 folder1">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/4.jpg" class="img-responsive" title="cool_cup.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>cool_cup.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-primary ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label2 folder2">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="~/Content/img/stock/5.jpg" class="img-responsive" title="the-beach.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>the-beach.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-system ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label3 folder3">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/1.jpg" class="img-responsive" title="windy_dirtroad.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>windy_dirtroad.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-primary ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label1 folder1">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/2.jpg" class="img-responsive" title="yosemite_sun.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>yosemite_sun.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-alert ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label2 folder2">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/3.jpg" class="img-responsive" title="stairs-not.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>stairs-not.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-info ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label1 folder1">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/1.jpg" class="img-responsive" title="lost_typewritter.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>lost_typewritter.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-info ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label2 folder2">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/2.jpg" class="img-responsive" title="stairs-to_soul.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>stairs-to_soul.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-alert ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label3 folder3">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/3.jpg" class="img-responsive" title="why_are_locks.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>why_are_locks.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-danger ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mix label1 folder1">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="/Content/img/stock/4.jpg" class="img-responsive" title="cool_cup.jpg">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    <h6>cool_cup.jpg</h6>
+                                                </div>
+                                                <div class="col-xs-4 text-right va-m prn">
+                                                    <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                    <span class="fa fa-circle fs10 text-primary ml10"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>*@
+                        </div>
+                        <!--End Example image-->
+                        @foreach (var photo in Model.Category.Pictures)
+                        {
+                            <div class="mix label1 folder1">
+                                <div class="panel p6 pbn">
+                                    <div class="of-h">
+                                        <img src="@Url.Static(photo.ImageUrl)" class="img-responsive" title="@photo.ImageUrl">
+                                        <div class="row table-layout">
+                                            <div class="col-xs-8 va-m pln">
+                                                <h6>@photo.ImageUrl</h6>
+                                            </div>
+                                            <div class="col-xs-4 text-right va-m prn">
+                                                <span class="fa fa-eye-slash fs12 text-muted"></span>
+                                                <span class="fa fa-circle fs10 text-primary ml10"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="gap"></div>
+                        <div class="gap"></div>
+                        <div class="gap"></div>
+                        <div class="gap"></div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End of Pictures Management Tab -->
+        </div>
+        <!-- End of Tab Content -->
+    </div>
+    <!-- End of Tab Structure -->
+    <!-- Category Details Modal -->
+    <div id="categoryDetailModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            @using (Html.BeginForm("Details", "Categories", FormMethod.Post, new { enctype = "multipart/form-data", @class = "modal-content val-A" }))
+            {
+
+                <!-- Modal Header -->
+                <div class="admin-form theme-primary tab-pane active" id="login2" role="tabpanel">
+                    <div class="panel panel-primary heading-border">
+                        <div class="panel-heading">
+                            <span class="panel-title">
+                                <i class="fa fa-pencil-square"></i>Kategori Bilgileri
+                            </span>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                x
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Modal Header -->
+                <input type="hidden" name="Id" value="@(Model.Category.CategoryId) " />
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    @Html.Partial("EditPartial", Model.Category)
+                </div>
+                <!-- End of Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w150">Kaydet</button>
+                </div>
+
+                <!-- End of Modal Footer -->
+            }
+        </div>
+    </div>
+    <!-- End of Category Details Modal -->
+</section>
+
+@section scripts{
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.js"></script>
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.custom.js"></script>
+    <script src="/Content/vendor/plugins/Select2/select2.full.min.js"></script>
+    <script src="/Content/vendor/plugins/jquerymask/jquery.maskedinput.min.js"></script>
+    <script src="/Content/custom/js/default.js"></script>
+    <script src="~/Content/custom/js/galleryWithFilter.js"></script>
+    <script type="text/javascript">
+        kendo.culture("tr-TR");
+    </script>
+
+    <script>
+        $(function () {
+            $("#sortable").sortable({
+                placeholder: "ui-state-highlight",
+                stop: function (event, ui) {
+                    var ulElement = ui.item.parent();
+                    var listElements = ulElement.children();
+                    var listValues = {};
+
+                    $(listElements).each(function (index, element) {
+                        var trademarkID = $(element).data('id');
+                        var trademarkName = element.innerHTML;
+
+                        listValues[trademarkName] = {};
+                        listValues[trademarkName].id = trademarkID;
+                        listValues[trademarkName].rank = index;
+                    });
+
+                    console.log(listValues);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            var status = document.getElementById("status").value
+
+            if (status == "Active") {
+                document.getElementById("categoryStatus").checked = true
+            }
+            else {
+                document.getElementById("categoryStatus").checked = false
+            }
+        });
+
+        function changeStatus() {
+            var checked = document.getElementById("categoryStatus").checked;
+            if (checked) {
+                var data = 1
+            }
+            else {
+                var data = -1
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateCategoryStatus","headstone")',
+                data: { cid: @Model.Category.CategoryId, status: data },
+                success: function (response) {
+                    if (response.ReturnCode == 200) {
+                        document.getElementById("responseText").innerHTML = "Kategori durumu başarıyla güncellendi."
+                    }
+                    else if (response.ReturnCode == -300) {
+                        document.getElementById("responseText").innerHTML = "Kategori durumu güncellenirken hata oluştu."
+                    }
+                        $("#statusResponse").show()
+                        setTimeout(function () {
+                            $("#statusResponse").hide()
+                        }, 2000)
+                }
+            });
+        }
+    </script>
+
+
+
+}

@@ -1,0 +1,145 @@
+﻿@model Headstone.AI.Models.ViewModels.RoleViewModel
+
+@{
+    ViewBag.Title = "Kullanıcı Rol Detayları";
+    Session["PageName"] = "roles";
+}
+
+@section head{
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>@Model.Name</h4>
+        <hr class="alt short">
+        <div class="row">
+            @*<div class="col-md-8">
+                <p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>*@
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Tab Structure -->
+    <div class="tab-block mb25">
+        <!-- Tab Navi Items -->
+        <ul class="nav nav-tabs tabs-border">
+            <li class="active">
+                <a href="#tab2_1" data-toggle="tab">Temel Bilgiler</a>
+            </li>
+            <li>
+                <a href="#tab2_2" data-toggle="tab">Yetkiler</a>
+            </li>
+        </ul>
+        <!-- End of Tab Navi Items -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Role Info Tab -->
+            <div id="tab2_1" class="tab-pane active">
+                <div class="row mb25">
+                    <!-- Role Detail Table -->
+                    <div class="col-md-6">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="w150 fw600">Yaratılış Tarihi</td>
+                                    <td>01.01.0001</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Rol Adı</td>
+                                    <td><input class="form-control" type="text" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Rol Durumu</td>
+                                    <td class="admin-form">
+                                        <label class="switch switch-success switch-inline">
+                                            <input id="roleStatus" type="checkbox" checked="">
+                                            <label for="roleStatus"></label>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End of Role Detail Table -->
+                </div>
+
+               <div class="row">
+                    <div class="col-md-12">
+                        <!-- Save Button -->
+                        <button type="button" class="btn btn-primary w150" data-toggle="modal" data-target="#userDetailModal">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Role Info Tab -->
+            <!-- Role Authorities Tab -->
+            <div id="tab2_2" class="tab-pane">
+                <div class="row mb25">
+                    <!-- Role Authority Status Table -->
+                    <div class="col-md-6">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="w150 fw600">Kullanıcı Yönetimi</td>
+                                    <td>
+                                        <div class="w100 inline-object checkbox-custom checkbox-success">
+                                            <input type="checkbox" checked="" id="cb1">
+                                            <label for="cb1">Okuma</label>
+                                        </div>
+                                        <div class="w100 inline-object checkbox-custom checkbox-success">
+                                            <input type="checkbox" checked="" id="cb2">
+                                            <label for="cb2">Yazma</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Bayi Yönetimi</td>
+                                    <td>
+                                        <div class="w100 inline-object checkbox-custom checkbox-success">
+                                            <input type="checkbox" checked="" id="cb3">
+                                            <label for="cb3">Okuma</label>
+                                        </div>
+                                        <div class="w100 inline-object checkbox-custom checkbox-success">
+                                            <input type="checkbox" checked="" id="cb4">
+                                            <label for="cb4">Yazma</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Rapor Yönetimi</td>
+                                    <td>
+                                        <div class="w100 inline-object checkbox-custom checkbox-success">
+                                            <input type="checkbox" checked="" id="cb5">
+                                            <label for="cb5">Okuma</label>
+                                        </div>
+                                        <div class="w100 inline-object checkbox-custom checkbox-success">
+                                            <input type="checkbox" checked="" id="cb6">
+                                            <label for="cb6">Yazma</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End of Role Authority Status Table -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Save Button -->
+                        <button type="button" class="btn btn-primary w150" data-toggle="modal" data-target="#userDetailModal">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Role Authorities Tab -->
+        </div>
+        <!-- End of Tab Content -->
+    </div>
+    <!-- End of Tab Structure -->
+</section>
+
+
+
+@section scripts{
+}

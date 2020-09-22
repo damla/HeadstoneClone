@@ -1,0 +1,111 @@
+﻿@model Headstone.UI.Models.ViewModels.HeaderViewModel
+<!-- Header Section start -->
+<header class="header">
+    <section class="main-header bb-1x-default">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4">
+                    <a href="~/" class="logo">
+                        <img class="header-img" src="~/Content/Images/Icons/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="searchContainer">
+                    <i class="fa fa-search searchIcon"></i>
+                    <input class="form-control searchBox" type="text" placeholder="Aradığınız ürün, kategori veya markayı yazınız" aria-label="Search" id="searchBar">
+                    <input type="submit" value="Ara" class="searchButton">
+                </div>
+                <div class="col-md-2 text-md-right header-cart">
+                    @if (Model.CurrentUser != null)
+                    {
+                        @Html.Action("Minicart", "Basket")
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- nav start -->
+    <section class="nav-header bb-1x-default">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-9 d-none d-md-block">
+                    <nav class="main-menu">
+                        <ul>
+                            <li>@Html.ActionLink("ANA SAYFA", "Index", "Home")</li>
+                            <li class="has-menu-child">
+                                <a href="#">Kategoriler<span class="new">new</span></a>
+                                <ul class="sub-menu">
+                                    @{ var count = 0; }
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        if (count > 15) { break; }
+                                        <li><a href="~/urunler/@category.CategoryId">@category.CategoryName</a></li>
+                                        
+                                        count++;
+                                    }
+                                </ul>
+                            </li>
+
+                            <!-- <li><a href="shop.html">Hot Item <span class="sale">sale</span></a></li> -->
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3 text-right">
+                    <div class="header-icons">
+                        @if (Model.CurrentUser != null)
+                        {
+                            <a href="~/sepet" class="d-inline-block d-md-none"><i class="fas fa-shopping-cart"></i><span class="fav-count">0</span></a>
+                            <a href="#" class="fav-icon"><i class="far fa-heart"></i><span class="fav-count">@Model.FavItemCount</span></a>
+                        }
+                        <div class="user-menu-wrapper">
+                            <a href="#" class="profile-icons" id="UserMenu">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            @if (Model.CurrentUser == null)
+                            {
+                                <div class="user-menu bordered">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal" onclick="show('#loginModal');"><i class="fas fa-sign-in-alt"></i>&nbsp; GİRİŞ YAP</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#registerModal" onclick="show('#registerModal');"><i class="far fa-id-card"></i>&nbsp;ÜYE OL</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="user-menu">
+                                    <ul>
+                                        <li class="user-name py-2">
+                                            <span><strong>@Model.CurrentUser.Firstname @Model.CurrentUser.Lastname</strong></span>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("UserInfo", "Account")"><i class="fas fa-user"></i> KULLANICI BİLGİLERİM</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("OrderInfo", "Account")"><i class="fas fa-box"></i>SİPARİŞLERİM</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Favorites", "Account")"><i class="fas fa-ticket-alt"></i>FAVORİLERİM</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Coupons", "Account")"><i class="fas fa-ticket-alt"></i>KUPONLARIM</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("LogOff", "Identity")"><i class="fas fa-sign-out-alt"></i>ÇIKIŞ YAP</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @Html.Action("Login", "Identity")
+    @Html.Action("Register", "Identity")
+    <!-- nav end -->
+</header>
+<!-- Header Section end -->

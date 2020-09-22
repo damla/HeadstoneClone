@@ -1,0 +1,572 @@
+﻿@model Headstone.AI.Models.ViewModels.OrderDetailViewModel
+
+@{
+    ViewBag.Title = "Sipariş Detayları";
+    Session["PageName"] = "orders";
+}
+
+@section headfirstentry{
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/dropzone/css/dropzone.css">
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/paddings.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/heights.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/flex.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/borders.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/Magnific/magnific.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/magnific/magnific-popup.css">
+}
+
+<section id="content" class="order-details">
+    <!-- Page Intro -->
+    <div class="row mb20">
+        <div class="col-xs-12">
+            <div class="label label-primary fs14">
+                Sipariş #<strong>@Model.Order.OrderId</strong>
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Oder No -->
+    
+    <!-- End of Oder No -->
+    <!-- Tab Structure -->
+    <div class="tab-block mb25">
+        <!-- Tab Navi Items -->
+        <ul class="nav nav-tabs tabs-border">
+            <li class="active">
+                <a href="#tab1_1" data-toggle="tab">Temel Bilgiler</a>
+            </li>
+            <li>
+                <a href="#tab1_2" data-toggle="tab">Ürün Bilgileri</a>
+            </li>
+            <li>
+                <a href="#tab1_3" data-toggle="tab">Ödeme Bilgileri</a>
+            </li>
+            <li>
+                <a href="#tab1_4" data-toggle="tab">İptal / İade</a>
+            </li>
+        </ul>
+        <!-- End of Tab Navi Items -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Order Detail Tab -->
+            <div id="tab1_1" class="tab-pane active">
+                <!-- Order Details  -->
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="left-col col-xl-9 col-md-12">
+                        <!-- Order Head Info -->
+                        <div class="row">
+                            <!-- Invoice Info -->
+                            <div class="col-sm-4">
+                                <div class="panel panel-alt">
+                                    <div class="panel-heading">
+                                        <span class="panel-title">
+                                            <i class="fa fa-info"></i> Fatura Bilgileri
+                                        </span>
+                                        <div class="panel-btns pull-right ml10"> </div>
+                                    </div>
+                                    <div class="panel-body minh-sm-125">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <b>Fatura No:</b> 58126332
+                                            </li>
+                                            <li>
+                                                <b>Fatura Tarihi:</b> 10 Oct 2013
+                                            </li>
+                                            <li>
+                                                <b>Vade Tarihi:</b> 21 Dec 2013
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Invoice Info -->
+                            <!-- Invoice Address -->
+                            <div class="col-sm-4">
+                                <div class="panel panel-alt">
+                                    <div class="panel-heading">
+                                        <span class="panel-title">
+                                            <i class="fa fa-envelope"></i> Fatura Adresi
+                                        </span>
+                                    </div>
+                                    <div class="panel-body minh-sm-125">
+                                        <address>
+                                            @*<strong>Cannon Camera</strong>
+                                            <br> 151 Sandy Ave, Suite 200
+                                            <br> San Jose, CA 91503
+                                            <br>
+                                            <abbr title="Telefon No">T:</abbr> (123) 456-7890*@
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Invoice Address -->
+                            <!-- Delivery Address -->
+                            <div class="col-sm-4">
+                                <div class="panel panel-alt">
+                                    <div class="panel-heading">
+                                        <span class="panel-title">
+                                            <i class="fa fa-location-arrow"></i> Teslimat Adresi
+                                        </span>
+                                    </div>
+                                    <div class="panel-body minh-sm-125">
+                                        @foreach (var address in Model.Deliveries)
+                                        {
+                                            <address>
+                                                <strong> @address.StreetAddress</strong>
+                                                <br> @(address.District + " " + address.City)
+                                                <br> @address.Country
+                                                <br />
+                                                <abbr title="Telefon No">T:</abbr> @address.ContactPhone
+                                            </address>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Delivery Address -->
+                        </div>
+                        <!-- End of Order Head Info -->
+                        <!-- Order Product List -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-heading">
+                                    <span class="panel-title">
+                                        <i class="fa fa-shopping-cart"></i> Ürünler
+                                    </span>
+                                </div>
+                                <div class="panel-body bg-white">
+                                    <!-- Product List Table -->
+                                    <div class="responsive-table-container">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-right w75"><div class="w75">No</div></th>
+                                                    <th class="w100"><div class="w100"></div></th>
+                                                    <th class="text-left"><div style="min-width:250px;">Marka Adı</div></th>
+                                                    <th class="text-left"><div style="min-width:250px;">Ürün Adı</div></th>
+                                                    <th class="text-left"><div style="min-width:250px;">Ürün Resmi</div></th>
+                                                    <th class="text-right w75"><div class="w75">Adet</div></th>
+                                                    <th class="text-right w100"><div class="w100">Birim ₺</div></th>
+                                                    <th class="text-right w100 pr10"><div class="w100">Toplam ₺</div></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model.Lines)
+                                                {
+                                                <tr>
+                                                    <td class="text-right fw600">@item.LineId</td>
+                                                    <td class="zoom-gallery zoom-gallery-type-A">
+                                                        <a href="@item.PictureUrl" title="<b>Marka Adı</b>"
+                                                           style="background-image: url('@item.PictureUrl');"
+                                                           class="image-popup-vertical-fit">
+                                                            <img src="@item.PictureUrl" />
+                                                        </a>
+                                                    </td>
+
+
+                                                    <td class="text-left">
+                                                        <div class="fs15">@item.Name</div>
+                                                        <p>
+                                                            @item.Notes
+                                                        </p>
+                                                    </td>
+                                                    <td class="zoom-gallery zoom-gallery-type-A">
+                                                        <a href="@item.PictureUrl" title="<b> Ürün Resmi</b>"
+                                                           style="background-image: url('@item.PictureUrl');"
+                                                           class="image-popup-vertical-fit">
+                                                            <img src="@item.PictureUrl" />
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-right">@item.Quantity</td>
+                                                    <td class="text-right">@item.UnitPrice</td>
+                                                    <td class="text-right pr10">@item.LineTotal</td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- End of Product List Table -->
+                                    <!-- Product List Sub Total -->
+                                    <div class="col-md-12 pl-xs-0 pr-xs-0 mt-xs-20">
+                                        <table class="table ml-xs-a">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-right fw600">Ara Toplam</td>
+                                                    <td class="text-right">@(Model.Order.Total + " " + Model.Order.Currency)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right fw600">KDV</td>
+                                                    <td class="text-right">@(Model.TotalTaxAmount + " " + Model.Order.Currency)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- End of Product List Sub Total -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Order Product List -->
+                        <!-- Order Payment Info -->
+                        <div class="row mt20">
+                            <div class="col-md-12">
+                                <div class="panel-heading">
+                                    <span class="panel-title">
+                                        <i class="fa fa-credit-card"></i> Ödemeler
+                                    </span>
+                                </div>
+                                <div class="panel-body bg-white">
+                                    <!-- Payment Type List Table -->
+                                    <div class="responsive-table-container">
+                                        <table class="table table-hover data-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-right w75"><div class="w75">No</div></th>
+                                                    <th><div style="min-width:200px">Ödeme Kanalı</div></th>
+                                                    <th class="w200"><div class="w200">Ödeme Şekli</div></th>
+                                                    <th class="w125"><div class="w125">Referans Kodu</div></th>
+                                                    <th class="text-right w100"><div class="w100">Tutar</div></th>
+                                                    <th class="text-right w50"><div class="w50">Taksit</div></th>
+                                                    <th class="w150"><div class="w150">Tarih</div></th>
+                                                    <th class="text-center w50"><div class="w50">Durum</div></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var transaction in Model.Transactions)
+                                                {
+                                                    <tr>
+                                                        <td class="text-right fw600">@transaction.TransactionId</td>
+                                                        <td>@transaction.Channel</td>
+                                                        <td>@transaction.Gateway</td>
+                                                        <td>@transaction.RefNumber</td>
+                                                        <td class="text-right">@transaction.Amount</td>
+                                                        <td class="text-right">@transaction.Installments</td>
+                                                        <td>@transaction.TransactionDate</td>
+                                                        @if (transaction.State == Lidia.Order.Common.Models.TransactionState.Approved || transaction.State == Lidia.Order.Common.Models.TransactionState.Completed)
+                                                        {
+                                                            <td class="text-center"><i class="fa fa-circle text-success fs12 pr5" title="Kabul edildi"></i></td>
+                                                        }
+                                                        else if (transaction.State == Lidia.Order.Common.Models.TransactionState.Pending || transaction.State == Lidia.Order.Common.Models.TransactionState.Redirected)
+                                                        {
+                                                            <td class="text-center"><i class="fa fa-circle text-warning fs12 pr5" title="Beklemede"></i></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="text-center"><i class="fa fa-circle text-alert fs12 pr5" title="Reddedildi"></i></td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- End of Payment Type List Table -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Order Payment Info -->
+                        <!-- Invoice Footer -->
+                        <div class="row mt50">
+                            <div class="col-md-12">
+                                <table class="table ml-xs-a">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-right fw600">Ödenen</td>
+                                            <td class="text-right">@(Model.PaidTotal + " " + Model.Order.Currency) </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right fw600">Toplam</td>
+                                            <td class="text-right">@(Model.Order.Total + " " + Model.Order.Currency)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right fw600 bg-light no-border">Kalan Bakiye</td>
+                                            <td class="text-right bg-light no-border">@(Model.RemaininTotal + " " + Model.Order.Currency)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Invoice Action Buttons -->
+                                <div class="invoice-buttons">
+                                    <a href="javascript:window.print()" class="btn btn-default mr10">
+                                        <i class="fa fa-print pr5"></i> Yazdır
+                                    </a>
+                                    @*<button class="btn btn-primary" type="button">
+                                        <i class="fa fa-floppy-o pr5"></i> Kaydet
+                                    </button>*@
+                                </div>
+                                <!-- End of Invoice Action Buttons -->
+                            </div>
+                        </div>
+                        <!-- End of Invoice Footer -->
+                    </div>
+                    <!-- End of Left Column -->
+                    <!-- Right Column -->
+                    <div class="right-col col-xl-3 col-md-12">
+                        <div class="row">
+                            <!-- User Info -->
+                            <div class="col-xl-12 col-md-6">
+                                <div class="panel panel-alt">
+                                    <div class="panel-heading">
+                                        <span class="panel-title">
+                                            <i class="fa fa-user"></i> Kullanıcı Bilgileri
+                                        </span>
+                                    </div>
+                                    <div class="panel-body minh-sm-125">
+                                        <a href="/Users/Details/@Model.User.Id">@Model.User.Fullname</a><br />
+                                        <a href="mailto:@Model.User.Email">@Model.User.Email</a> <br />
+                                        <a href="tel:@Model.User.MobileNumber">@Model.User.MobileNumber</a> <br />
+                                        @Model.User.City
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  End of User Info -->
+                            <!-- Customer Note -->
+                            @*<div class="col-xl-12 col-md-6">
+                                    <div class="panel panel-alt">
+                                        <div class="panel-heading">
+                                            <span class="panel-title">
+                                                <i class="fa fa-edit"></i> Müşteri Notu
+                                            </span>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing eli</p>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <!--  End of Customer Note -->
+                            <!-- Admin Note List -->
+                            @*<div class="col-md-12">
+                                    <div class="panel panel-alt">
+                                        <div class="panel-heading">
+                                            <span class="panel-title">
+                                                <i class="fa fa-edit"></i> Yönetici Notu
+                                            </span>
+                                        </div>
+                                        <div class="panel-body">
+                                            <blockquote class="col-xl-12 col-sm-6 blockquote-rounded mv20 fs13">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <div class="fs12">
+                                                    <i class="fa fa-paperclip"></i> <a href="#" target="_blank">eski-fatura.pdf</a>
+                                                </div>
+                                                <div class="fs12">
+                                                    <i class="fa fa-paperclip"></i> <a href="#" target="_blank">document-xxx.pdf</a>
+                                                </div>
+                                                <small class="mt-lg-5">Kıvanç Toker - 12.02.2019</small>
+                                            </blockquote>
+                                            <blockquote class="col-xl-12 col-sm-6 blockquote-rounded mv20 fs13">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <div class="fs12">
+                                                    <i class="fa fa-paperclip"></i> <a href="#" target="_blank">eski-fatura.pdf</a>
+                                                </div>
+                                                <div class="fs12">
+                                                    <i class="fa fa-paperclip"></i> <a href="#" target="_blank">document-xxx.pdf</a>
+                                                </div>
+                                                <small class="mt-lg-5">Kıvanç Toker - 12.02.2019</small>
+                                            </blockquote>
+                                            <blockquote class="col-xl-12 col-sm-6 blockquote-rounded mv20 fs13">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <div class="fs12">
+                                                    <i class="fa fa-paperclip"></i> <a href="#" target="_blank">eski-fatura.pdf</a>
+                                                </div>
+                                                <div class="fs12">
+                                                    <i class="fa fa-paperclip"></i> <a href="#" target="_blank">document-xxx.pdf</a>
+                                                </div>
+                                                <small class="mt-lg-5">Kıvanç Toker - 12.02.2019</small>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <!--  End of Admin Note List -->
+                        </div>
+                        <div class="row">
+                            <!-- Note Text Area -->
+                            @*<div class="col-xl-12 col-sm-6 mb50 fl-ra">
+                                    <textarea class="form-control" rows="6" placeholder="Yeni notunuz yazınız..."></textarea>
+                                    <button type="button" class="btn btn-primary mt-5">Gönder</button>
+                                </div>*@
+                            <!-- End of Note Text Area -->
+                            <!-- File Uploader -->
+                            @*<div class="col-xl-12 col-sm-6">
+                                    <div class="holder-style bg-light">
+                                        <form action="/file-upload" class="dropzone dropzone-sm" id="dropZone">
+                                            <div class="fallback">
+                                                <input name="file" type="file" multiple />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>*@
+                            <!-- End of File Uploader -->
+                        </div>
+                    </div>
+                </div>
+                <!--  End of Right Column -->
+                <!-- End of Order Details  -->
+            </div>
+            <!-- End of Order Detail Tab -->
+            <!-- Product List Tab -->
+            <div id="tab1_2" class="tab-pane bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Product List Table -->
+                        <div class="responsive-table-container">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-right w75"><div class="w75">No</div></th>
+                                        <th class="w100"><div class="w100"></div></th>
+                                        <th class="text-left"><div style="min-width:250px;">Marka Adı</div></th>
+                                        <th class="text-left"><div style="min-width:250px;">Ürün Adı</div></th>
+                                        <th class="text-left"><div style="min-width:250px;">Ürün Resmi</div></th>
+                                        <th class="text-right w75"><div class="w75">Adet</div></th>
+                                        <th class="text-right w100"><div class="w100">Birim ₺</div></th>
+                                        <th class="text-right w100 pr10"><div class="w100">Toplam ₺</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Lines)
+                                    {
+                                    <tr>
+                                        <td class="text-right">@item.LineId</td>
+                                        <td class="zoom-gallery zoom-gallery-type-A">
+                                            <a href="@item.PictureUrl" title="<b>Marka Adı</b>"
+                                               style="background-image: url('@item.PictureUrl');"
+                                               class="image-popup-vertical-fit">
+                                                <img src="@item.PictureUrl" />
+                                            </a>
+                                        </td>
+
+
+                                        <td class="text-left">
+                                            <div class="fs15">@item.Name</div>
+                                            <p>
+                                                @item.Notes
+                                            </p>
+                                        </td>
+                                        <td class="zoom-gallery zoom-gallery-type-A">
+                                            <a href="@item.PictureUrl" title="<b>Ürün Resmi</b>"
+                                               style="background-image: url('@item.PictureUrl');"
+                                               class="image-popup-vertical-fit">
+                                                <img src="@item.PictureUrl" />
+                                            </a>
+                                        </td>
+                                        <td class="text-right">@item.Quantity</td>
+                                        <td class="text-right">@item.UnitPrice</td>
+                                        <td class="text-right pr10">@item.LineTotal</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End of Product List Table -->
+                    </div>
+                </div>
+            </div>
+            <!--End of Product List Tab -->
+            <!-- Payment Info Tab -->
+            <div id="tab1_3" class="tab-pane bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Payment Type List Table -->
+                        <div class="responsive-table-container">
+                            <table class="table table-hover data-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="text-right w75"><div class="w75">No</div></th>
+                                        <th><div style="min-width:200px">Ödeme Kanalı</div></th>
+                                        <th class="w250"><div class="w250">Ödeme Şekli</div></th>
+                                        <th class="w150"><div class="w150">Referans Kodu</div></th>
+                                        <th class="text-right w125"><div class="w125">Tutar ₺</div></th>
+                                        <th class="text-right w75"><div class="w75">Taksit</div></th>
+                                        <th class="w150"><div class="w150">Tarih</div></th>
+                                        <th class="text-center w75"><div class="w75">Durum</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var transaction in Model.Transactions)
+                                    {
+                                        <tr>
+                                            <td class="text-right fw600">@transaction.TransactionId</td>
+                                            <td>@transaction.Channel</td>
+                                            <td>@transaction.Gateway</td>
+                                            <td>@transaction.RefNumber</td>
+                                            <td class="text-right">@transaction.Amount</td>
+                                            <td class="text-right">@transaction.Installments</td>
+                                            <td>@transaction.TransactionDate</td>
+                                            @if (transaction.State == Lidia.Order.Common.Models.TransactionState.Approved || transaction.State == Lidia.Order.Common.Models.TransactionState.Completed)
+                                            {
+                                                <td class="text-center"><i class="fa fa-circle text-success fs12 pr5" title="Kabul edildi"></i></td>
+                                            }
+                                            else if (transaction.State == Lidia.Order.Common.Models.TransactionState.Pending || transaction.State == Lidia.Order.Common.Models.TransactionState.Redirected)
+                                            {
+                                                <td class="text-center"><i class="fa fa-circle text-warning fs12 pr5" title="Beklemede"></i></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center"><i class="fa fa-circle text-alert fs12 pr5" title="Reddedildi"></i></td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End of Payment Type List Table -->
+                    </div>
+                </div>
+            </div>
+            <!--End of Payment Info Tab -->
+            <!-- Cancellation / Refund Tab -->
+            <div id="tab1_4" class="tab-pane bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Cancellation and Refund List Table -->
+                        <div class="responsive-table-container">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-right w75"><div class="w75">No</div></th>
+                                        <th class="text-left"><div>Sipariş Kodu</div></th>
+                                        <th class="text-right w75"><div class="w75">Adet</div></th>
+                                        <th class="text-right w75"><div class="w75">Toplam</div></th>
+                                        <th class="text-right w75"><div class="w75">Tarih</div></th>
+                                        <th class="text-center w100"><div class="w100">Durum</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var orderLine in Model.Lines)
+                                    {
+                                        <tr>
+                                            <td class="text-right fw600">@orderLine.LineId</td>
+                                            <td class="text-left">
+                                                <p>
+                                                    @orderLine.LineCode
+                                                </p>
+                                            </td>
+                                            <td class="text-right">@orderLine.Quantity</td>
+                                            <td class="text-right">@orderLine.LineTotal</td>
+                                            <td class="text-right">@Model.Order.OrderDate.ToString("dd.MM.yyyy")</td>
+                                            <td class="text-center">@orderLine.State</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End of Cancellation and Refund List Table -->
+                    </div>
+                </div>
+            </div>
+            <!--End of Cancellation / Refund Tab -->
+        </div>
+    </div>
+
+</section>
+
+
+@section scripts{
+    <script src="/Content/vendor/plugins/magnific/jquery.magnific-popup.min.js"></script>
+    <script src="/Content/custom/Magnific/magnific.js"></script>
+    <script src="/Content/vendor/plugins/dropzone/dropzone.min.js"></script>
+    <script src="/Content/custom/js/default.js"></script>
+}

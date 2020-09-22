@@ -1,0 +1,38 @@
+﻿@model Headstone.UI.Models.ViewModels.BasketViewModel
+
+@{
+    Layout = null;
+}
+<div id="miniCartDiv" class="mini-cart">
+    <a href="javascript:void(0)" class="cart-btn">Sepetim <span class="color-red">(@Model.BasketItems.Count())</span>&nbsp;<i class="fas fa-shopping-cart"></i></a>
+    <div class="mini-cart-con">
+        @if (Model.BasketItems.Any())
+        {
+            <ul>
+                @foreach (var item in Model.BasketItems)
+                {
+                    <li>
+                        <div class="single-mini-pd">
+                            <img src="~/Content/Images/Icons/products/shop/1.jpg" alt="">
+                            <h6><a href="~/urun/@item.ProductID">@item.ProductName</a></h6>
+                            <span class="product-price">$@item.ListPrice <small>$@item.Price</small></span>
+                            <span>@item.Quantity Adet</span>
+                        </div>
+                    </li>
+                }
+            </ul>
+            <div class="cart-total p-2">
+                <p>Sub total:<span>$@Model.TotalPrice</span></p>
+                <p>Total:<span>$@Model.TotalListPrice</span></p>
+                <a href="~/sepet" class="btn btn-filled">Sepete Git</a>
+            </div>
+        }
+        else
+        {
+            <ul>
+                <li>Sepetinizde ürün bulunmamaktadır!</li>
+            </ul>
+        }
+    </div>
+</div>
+<script src="~/Content/Scripts/scripts.js"></script>

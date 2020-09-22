@@ -1,0 +1,35 @@
+﻿@model Headstone.AI.Models.ViewModels.HeaderViewModel
+
+<header class="navbar navbar-fixed-top">
+    <!-- Site Logo -->
+    <div class="navbar-branding dark" style="margin-left:2.5%;">
+        <a class="navbar-brand" href="/">
+            <img src="" style="width:50%;" />
+        </a>
+        <span id="toggle_sidemenu_l" class="ad ad-lines"></span>
+    </div>
+    <!-- End of Site Logo -->
+    <!-- User Menu -->
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle fw600 p15" data-toggle="dropdown" aria-expanded="false">
+                <img src="/Content/Files/Avatars/1/avatar.jpg" alt="avatar" class="mw30 br64 mr15">
+                @Model.CurrentUser.Firstname @Model.CurrentUser.Lastname
+                <span class="caret caret-tp hidden-xs"></span>
+            </a>
+            <ul class="dropdown-menu list-group dropdown-persist w250" role="menu">
+                <li class="list-group-item">
+                    <a href="/users/Details/@Model.CurrentUser.Id">
+                        <span class="fa fa-gear"></span> Profil ayarları
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/logoff">
+                        <span class="fa fa-power-off"></span> Çıkış yap
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- End of User Menu -->
+</header>

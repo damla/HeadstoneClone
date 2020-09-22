@@ -1,0 +1,261 @@
+﻿@using Headstone.Service.Helpers
+@model Headstone.AI.Models.ViewModels.ProductViewModel
+@{
+    ViewBag.Title = "Ürün Detayları";
+    Session["PageName"] = "products";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/Select2/css/core.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/paddings.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/Jquery.Validation/Validation.css" />
+
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>@Model.Product.Name</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                @*<p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Tab Structure -->
+    <div class="tab-block mb25">
+        <!-- Tab Navi Items -->
+        <ul class="nav nav-tabs tabs-border">
+            <li class="active">
+                <a href="#tab1_1" data-toggle="tab">Temel Bilgiler</a>
+            </li>
+            <li>
+                <a href="#tab1_8" data-toggle="tab">Görseller</a>
+            </li>
+        </ul>
+        <!-- End of Tab Navi Items -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Details Tab -->
+            <div id="tab1_1" class="tab-pane active">
+                <div class="row mb25">
+                    <!-- Product Detail Table -->
+                    <div class="col-xl-6 col-md-8 pr40">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td class="w200 fw600">ÜrünID</td>
+                                    <td>@Model.Product.ProductId</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw600">Ürün Kodu</td>
+                                    <td>@Model.Product.Code</td>
+                                </tr>
+                                <tr>
+                                    <td class="w150 fw600">Ürün Adı</td>
+                                    <td>@Model.Product.Name</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Fiyat</td>
+                                    <td>@Model.Product.Properties.FirstOrDefault(k => k.Key == "Price").Value</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Liste Fiyat</td>
+                                    <td>@Model.Product.Properties.FirstOrDefault(k => k.Key == "ListPrice").Value</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Ürün Markası</td>
+                                    @foreach (var trademark in Model.Trademarks)
+                                    {
+                                        <td>@trademark.Name</td>
+                                    }
+                                </tr>
+                                @*<tr>
+            <td class="fw600">Satış Fiyatı</td>
+            <td>@Model.P</td>
+        </tr>*@
+                                <tr>
+                                    <td class="fw600">Kısa Açıklama</td>
+                                    <td>@Model.Product.ShortDescription</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw600">Uzun Açıklama</td>
+                                    <td>@Model.Product.LongDescription</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw600">Durum</td>
+                                    <td>@Model.StatusName</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Ürün Kategorileri</td>
+                                    @foreach (var category in @Model.Categories)
+                                    {
+                                        <td class="fw600 w100"><a href="/categories/details/@category.CategoryId">@category.Name</a></td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Durum</td>
+                                    <td>
+                                        <select id="productStatus" onchange="changeStatus(this.value);" name="Status">
+                                            @if (Model.Product.Status == Headstone.MetaData.API.Models.EntityStatus.Active)
+                                            {
+                                                <option value="1">Aktif</option>
+                                                <option value="-1">Pasif</option>
+                                            }
+                                            else if (Model.Product.Status == Headstone.MetaData.API.Models.EntityStatus.Passive)
+                                            {
+                                                <option value="-1">Pasif</option>
+                                                <option value="1">Aktif</option>
+                                            }
+                                        </select>
+                                        <label for="productStatus"></label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div hidden id="statusResponse" class="row mb20">
+                            <div class="col-xs-6">
+                                <div class="panel-alert bg-success">
+                                    <div id="responseText" class="alert alert-success" role="alert">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Product Detail Table -->
+                    <!-- Product Picture -->
+                    <!-- End of Details Tab -->
+                </div>
+                <!-- End of Tab Content -->
+            </div>
+
+            <!-- Pictures Management Tab -->
+            <div id="tab1_8" class="tab-pane min-vh-500 gallery-page">
+
+                <section id="content" class="table-layout animated fadeIn">
+
+                    <div class="tray tray-center">
+                        <div id="mix-container">
+
+                            @foreach (var photo in Model.Product.Pictures)
+                            {
+                                <div class="mix label1 folder1">
+                                    <div class="panel p6 pbn">
+                                        <div class="of-h">
+                                            <img src="@Url.Static(photo.ImageUrl)" class="img-responsive" title="@photo.ImageUrl">
+                                            <div class="row table-layout">
+                                                <div class="col-xs-8 va-m pln">
+                                                    @*<h6>@photo.ImageUrl</h6>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="gap"></div>
+                            <div class="gap"></div>
+                            <div class="gap"></div>
+                            <div class="gap"></div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+                <!-- End of Pictures Management Tab -->
+                <!-- End of Tab Structure -->
+            </div>
+            @*<div class="row">
+                    <div class="col-md-12">
+                        <button style="display:none;" type="button" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20">Düzenle</button>
+                    </div>
+                </div>*@
+            @*<div class="row">
+                    <div class="col-md-12">
+                        <button style="display:none;" type="button" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20" data-toggle="modal" data-target="#productDetailModal">Düzenle</button>
+                    </div>
+                </div>*@
+        </div>
+        <!-- Product Details Modal -->
+        <div id="productDetailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document" data-validate="true">
+                @using (Html.BeginForm("Update", "Product", FormMethod.Post, new { enctype = "multipart/form-data", @class = "modal-content val-A" }))
+                {
+                    <!-- Modal Header -->
+                    <div class="admin-form theme-primary tab-pane active" id="login2" role="tabpanel">
+                        <div class="panel panel-primary heading-border">
+                            <div class="panel-heading">
+                                <span class="panel-title">
+                                    <i class="fa fa-pencil-square"></i>Ürün Bilgileri
+                                </span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    x
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Modal Header -->
+                    <input type="hidden" name="Id" value="@(Model.Product.ProductId) " />
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        @*@Html.Partial("~/Views/Products/Edit.cshtml", Model)*@
+                    </div>
+                    <!-- End of Modal Body -->
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary w150">Kaydet</button>
+                    </div>
+                }
+                <!-- End of Modal Footer -->
+            </div>
+        </div>
+        <!-- End of product Details Modal -->
+    </div>
+</section>
+
+@section scripts{
+    <script src="~/Content/custom/js/galleryWithFilter.js"></script>
+
+    <script>
+           function changeStatus(val) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateProductStatus","headstone")',
+                data: { pid: @Model.Product.ProductId, status: val },
+                success: function (response) {
+                    if (response.ReturnCode == 200) {
+                        document.getElementById("responseText").innerHTML = "Ürün durumu başarıyla güncellendi."
+                    }
+                    else if (response.ReturnCode == -300) {
+                        document.getElementById("responseText").innerHTML = "Ürün durumu güncellenirken hata oluştu."
+                    }
+                        $("#statusResponse").show()
+                        setTimeout(function () {
+                            $("#statusResponse").hide()
+                        }, 2000)
+                }
+            });
+        }
+    </script>
+
+}
+
+
+

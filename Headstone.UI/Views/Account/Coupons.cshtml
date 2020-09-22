@@ -1,0 +1,64 @@
+﻿@model List<Headstone.Models.Coupon>
+@{
+    ViewBag.Title = "Coupons";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+
+    <form method="POST" action="indirim-kuponlari">
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="row">
+                <h4 class="col-lg-12 col-md-12 col-xs-12">Kuponlarım</h4>
+                <p class="col-lg-12 col-md-12 col-xs-12">Kullanmak istediğiniz indirim kuponunu sepet sayfasında girebilirsiniz.</p>
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                        <div class="card coupon">
+                            <div class="card-body coupon-body">
+                                <h6 class="card-title coupon-title">İndirim Kuponu</h6>
+                                <div class="title-seperator"></div>
+                                <div class="row details">
+                                    <div class="col-8 coupon-details">
+                                        <div class="container-text">
+                                            <span>
+                                                <b>Aktivasyon Tarihi: &nbsp;</b>
+                                                @item.FromDate
+                                            </span><br />
+                                            <span>
+                                                @if (item.ToDate != null)
+                                                {
+                                                    <b>Son Kullanma Tarihi: &nbsp;</b>
+                                                    @item.ToDate
+                                                }
+                                                else
+                                                {
+                                                    <b>Son Kullanma Tarihi: &nbsp;</b>
+                                                    <span>Sınırsız</span>
+                                                }
+                                            </span><br />
+                                            <span>
+                                                <b>Alt Limit: &nbsp;</b>
+                                                150 TL
+                                            </span><br />
+                                            <span>
+                                                <b>Kupon Kodu: &nbsp;</b>
+                                                @item.CouponCode
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 discount-details pt-2">
+                                        <h4 align="center"> 50 TL </h4>
+                                        <p align="center">İNDİRİM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </form>

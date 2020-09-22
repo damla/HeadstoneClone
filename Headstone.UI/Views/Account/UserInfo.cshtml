@@ -1,0 +1,125 @@
+﻿@model Headstone.UI.Models.ViewModels.UserViewModel
+@{
+    ViewBag.Title = "UserInfo";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+
+
+    <form method="POST" action="UserInfo">
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="row">
+                <h4 class="col-lg-12 col-md-12 col-xs-12">Kullanıcı Bilgilerim</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 mb-3 border-right">
+                    <div class=" account-info">
+                        <p><strong>Üyelik Bilgilerim</strong></p>
+                        <section>
+                            <span>
+                                <b>İsim:</b>
+                            </span>
+                            <input type="text" name="Firstname" value="@Model.Firstname" class="user-input" />
+                        </section>
+                        <section>
+                            <span>
+                                <b>Soyisim:</b>
+                            </span>
+                            <input type="text" name="Lastname" value="@Model.Lastname" class="user-input" />
+                        </section>
+                        <section>
+                            <span>
+                                <b>E-mail:</b>
+                            </span>
+                            <input type="email" name="Email" value="@Model.Email" class="user-input" />
+                        </section>
+                        <section>
+                            <span>
+                                <b>Telefon:</b>
+                            </span>
+                            <input type="tel" name="MobileNumber" value="@Model.MobileNumber" class="user-input" />
+                        </section>
+                        <section>
+                            <span>
+                                <b>Doğum Tarihi:</b>
+                            </span>
+                            <input type="date" name="DateOfBirth" value="@Model.DateOfBirth" class="user-input" style="height: 28px;" />
+                        </section>
+                        <section>
+                            <span>
+                                <b>Cinsiyet:</b>
+                            </span>
+                            @if (Model.Gender == "Erkek")
+                            {
+                                <div class="checkBox">
+                                    <input type="radio" checked="checked" id="User-gender-1" />
+                                    <label for="User-gender-1">Erkek</label>
+                                </div>
+                                <div class="checkBox">
+                                    <input type="radio" id="User-gender-2" />
+                                    <label for="User-gender-2">Kadın</label>
+                                </div>
+                            }
+                            else if (Model.Gender == "Kadın")
+                            {
+                                <div class="checkBox">
+                                    <input type="radio" id="User-gender-1" />
+                                    <label for="User-gender-1">Erkek</label>
+                                </div>
+                                <div class="checkBox">
+                                    <input type="radio" checked="checked" id="User-gender-2" />
+                                    <label for="User-gender-2">Kadın</label>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="checkBox">
+                                    <input type="radio" checked="checked" id="User-gender-1" />
+                                    <label for="User-gender-1">Erkek</label>
+                                </div>
+                                <div class="checkBox">
+                                    <input type="radio" id="User-gender-2" />
+                                    <label for="User-gender-2">Kadın</label>
+                                </div>
+                            }
+                        </section>
+                        <section>
+                            <a href="#" class="updateBttn">Güncelle</a>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                    <div class="account-info">
+                        <p><strong>Şifre Yenile</strong></p>
+
+                        <section>
+                            <span>
+                                <b>Geçerli Şifre:</b>
+                            </span>
+                            <input type="password" class="user-input" />
+                        </section>
+                        <section>
+                            <span>
+                                <b>Yeni Şifre:</b>
+                            </span>
+                            <input type="password" class="user-input" />
+                        </section>
+                        <section>
+                            <span>
+                                <b>Yeni Şifre(Tekrar):</b>
+                            </span>
+                            <input type="password" class="user-input" />
+                        </section>
+                        <section>
+                            <a href="#" class="updateBttn">Güncelle</a>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </form>

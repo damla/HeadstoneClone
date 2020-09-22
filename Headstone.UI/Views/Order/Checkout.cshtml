@@ -1,0 +1,17 @@
+﻿@model Headstone.UI.Models.ViewModels.CheckoutViewModel
+@{
+    ViewBag.Title = "Sipariş Özeti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="col-md-6 col-sm-6 offset-md-3 offset-sm-3 my-4">
+            <p align="center">
+                <img src="~/Content/Images/Icons/check.png" class="chech-image check-image" /><br />
+            </p>
+            <h5 style="text-align:center;">Siparişiniz Alındı!</h5>
+            <p align="center">
+                <label>Sipariş No: </label><label style="color:darkorange">@Model.Order.OrderID</label><br />
+                Tebrikler, ödemeniz alındı. <br />
+                Ana sayfaya geri dönüp alışverişinize devam etmek için <a href="~/">buraya tıklayabilirsiniz.</a>
+            </p>
+    </div>

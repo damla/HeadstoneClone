@@ -1,0 +1,69 @@
+﻿@model Headstone.AI.Models.ViewModels.ContenListViewModel
+
+@{
+    ViewBag.Title = "Yorum ve Puanlar";
+    Session["PageName"] = "contents";
+}
+
+@section head{
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/messages/kendo.messages.tr-TR.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/cultures/kendo.culture.tr-TR.min.js"></script>
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb40">
+        <h4>Yorum ve Puanlar</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="text-muted">
+                    Yorum ve puanları belirli bir sütuna göre gruplamak için lütfen bu sütunun başlığını aşağıda belirtilen alana sürükleyip bırakınız. Sıralama yapmak için ise lütfen ilgili sütunun adına, filtreleme için ise ilgili sütunun isminin sağında bulunan ok imlecine tıklayınız.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Order List -->
+    <div class="row">
+        <div class="col-md-12">
+
+            @(Html.Kendo().Grid<Headstone.AI.Models.ViewModels.CustomerReviewViewModel>().Name("CustomerReviews").Columns(col =>
+            {
+                col.Bound(u => u.CommentId).Title("ID").ClientTemplate("<a href='" + Url.Action("CustomerReviews", "Content") + "/#=CommentId#'>#=CommentId#</a>");
+                col.Bound(u => u.RelatedUserName).Title("Değerlendirme Sahibi");
+                col.Bound(u => u.RelatedUserName).Title("Değerlendiren Bayi");
+                col.Bound(u => u.Rating).Title("Puan");
+                col.Bound(u => u.Body).Title("Yorum");
+                col.Bound(u => u.RelatedDataEntityType).Title("İçerik Türü");
+                col.Bound(u => u.Created).Format("{0:dd.MM.yyyy}").Title("Tarih");
+                col.Bound(u => u.Type).Title("Tür");
+                col.Bound(u => u.StatusName).Title("Durum");
+                col.Template(u => Html.ActionLink("Görüntüle", "View", new { id = u.CommentId })).ClientTemplate("<a href='" + Url.Action("CustomerReviews", "Content") + "/#=CommentId#'>Görüntüle</a>");
+            })
+            .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("GetComments", "content")).PageSize(50))
+            .Groupable()
+            .Filterable()
+            .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 25, 50, 100, 1000 }).ButtonCount(5))
+            .Sortable()
+            )
+
+        </div>
+    </div>
+    <!-- Order List -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        kendo.culture("tr-TR");
+    </script>
+}

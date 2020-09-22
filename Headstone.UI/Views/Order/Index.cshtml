@@ -1,0 +1,169 @@
+﻿@model Headstone.UI.Models.ViewModels.CheckoutViewModel
+@{
+    ViewBag.Title = "Ödeme";
+}
+
+<!-- Checkout section start -->
+<section class="checkout-sec mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="checkout-form">
+                    <div class="d-flex justify-content-between bb-1x-default p-4">
+                        <h6>Alıcı Bilgileri</h6>
+                    </div>
+                    <div class="checkout-body">
+                        <form action="checkout.html">
+                            <div class="form-group">
+                                <label for="f_name">İsim :</label>
+                                <input id="firstname" type="text" value="@Model.CurrentUser.Firstname">
+                            </div>
+                            <div class="form-group">
+                                <label for="l_name">Soyisim :</label>
+                                <input id="lastname" type="text" value="@Model.CurrentUser.Lastname">
+                            </div>
+                            @*<div class="form-group">
+                                    <label for="addr_select">Adres Seç :</label>
+                                    <select id="addr_select" type="">
+                                        <option>Deneme</option>
+                                    </select>
+                                </div>*@
+                            <div class="form-group">
+                                <label for="addr_header">Adres Başlık :</label>
+                                <input id="addrname" type="text" value="@(Model.Order.Addresses.FirstOrDefault()?.Name)">
+                            </div>
+                            <input id="addressId" hidden value="@(Model.Order.Addresses.FirstOrDefault()?.AddressId)" />
+                            <div class="form-group">
+                                <label for="addr_1">Adres :</label>
+                                <textarea id="addr_1" type="text" value="@(Model.Order.Addresses.FirstOrDefault()?.StreetAddress)"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Ülke :</label>
+                                <input id="country" type="text" value="@(Model.Order.Addresses.FirstOrDefault()?.Country)">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Şehir :</label>
+                                <input id="city" type="text" value="@(Model.Order.Addresses.FirstOrDefault()?.City)">
+                            </div>
+                            <div class="form-group">
+                                <label for="state">İlçe :</label>
+                                <input id="district" type="text" value="@(Model.Order.Addresses.FirstOrDefault()?.District)">
+                            </div>
+                            <div class="form-group">
+                                <label for="post_code">Posta Kodu :</label>
+                                <input id="zipcode" type="text" value="@(Model.Order.Addresses.FirstOrDefault()?.ZipCode)">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="checkout-form mb-md-5">
+                    <div class="d-flex flex-wrap justify-content-between bb-1x-default p-4">
+                        <h6>Sipariş Bilgileri</h6>
+                    </div>
+                    <div class="checkout-body bill-details" style="position: relative; padding: 25px 15px 5px;">
+                        <h5>Ürün<span>Toplam</span></h5>
+                        <ul>
+                            @foreach (var item in Model.Order.Basket.BasketItems)
+                            {
+                                <li>Ürün Adı<span>@item.ProductName</span></li>
+                                <li>Adet<span>@item.Quantity</span></li>
+                                <li>Urun Birim Fiyati<span>@item.ListPrice</span></li>
+                                <li>Urun Toplam Fiyati<span>$685</span></li> @*TODO: EKIN BURASI PATLIYOR*@
+                            }
+                        </ul>
+                        <h5>Toplam Ödeme<span id="totalprice">$@Model.Order.Basket.TotalListPrice</span></h5>
+                    </div>
+                </div>
+
+                <div class="checkout-form mb-0">
+                    <div class="d-flex justify-content-between bb-1x-default p-4">
+                        <h6>Ödeme Şekli</h6>
+                    </div>
+                    <div class="checkout-body payment-methods" style="position: relative; padding: 25px 15px 5px;">
+                        <form>
+                            <div class="form-group">
+                                <label for="asddsa">Kart Sahibinin Adi ve Soyadi:</label>
+                                <input id="cardholdername" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="card_number">Kart Numarası:</label>
+                                <input id="card_number" name="CardNumber" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="month">Ay :</label>
+                                <input id="expirymonth" name="CardExpiryMonth" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="year">Yıl :</label>
+                                <input id="expiryyear" name="CardExpiryYear" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVC :</label>
+                                <input id="cvv2" name="CVV2" type="text">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <a href="javascript:void(0)" class="btn btn-filled place-order" onclick="CompleteCheckout();">Siparişi Tamamla</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Checkout section end -->
+
+<script>
+
+    function CompleteCheckout() {
+        var controller = "odeme";
+        var service = "al";
+
+        var cardholdername = $('#cardholdername')[0].value;
+        var cardno = $('#card_number')[0].value;
+        var cvv = $('#cvv2')[0].value;
+        var expirymonth = $('#expirymonth')[0].value;
+        var expiryyear = $('#expiryyear')[0].value;
+        var addressId = $('#addressId')[0].value;
+        var streetaddress = $('#addr_1')[0].value;
+        var zipcode = $('#zipcode')[0].value;
+        var city = $('#city')[0].value;
+        var district = $('#district')[0].value;
+        var country = $('#country')[0].value;
+        var firstname = $('#firstname')[0].value;
+        var lastname = $('#lastname')[0].value;
+        var addrname = $('#addrname')[0].value;
+        var totalprice = $('#totalprice');
+
+        var data = {
+            CardHolderName: cardholdername,
+            CardNumber: cardno,
+            CVV2: cvv,
+            CardExpiryMonth: expirymonth,
+            CardExpiryYear: expiryyear,
+            AddressId: addressId,
+            StreetAddress: streetaddress,
+            Zipcode: zipcode,
+            City: city,
+            District: district,
+            Country: country,
+            AddressName: addrname,
+            Firstname: firstname,
+            Lastname: lastname,
+            TotalPrice: totalprice
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/" + controller + "/" + service,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function () {
+                window.location.href = location.href.replace("odeme", "siparis/ozet")
+            }
+        });
+    };
+</script>

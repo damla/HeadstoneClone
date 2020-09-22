@@ -1,0 +1,17 @@
+﻿using Headstone.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Headstone.AI.Models.ViewModels
+{
+    public class CommentNotificationViewModel
+    {
+        public UserViewModel User { get; set; }
+
+        public Comment Comment { get; set; }
+
+        public string SiteRoot { get; set; }
+    }
+}

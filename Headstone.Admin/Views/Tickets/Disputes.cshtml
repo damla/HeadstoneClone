@@ -1,0 +1,71 @@
+﻿@model Headstone.AI.Models.ViewModels.TicketListViewModel
+
+@{
+    ViewBag.Title = "Problemli Siparişler";
+    Session["PageName"] = "disputes";
+}
+
+@section head{
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/messages/kendo.messages.tr-TR.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/cultures/kendo.culture.tr-TR.min.js"></script>
+}
+
+<section id="content" class="animated fadeIn">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>Problemli Siparişler</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                @*<p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Disputes List -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Kendo Listing -->
+            @(Html.Kendo().Grid<Headstone.AI.Models.ViewModels.DisputeViewModel>().Name("Disputes").Columns(cols =>
+        {
+            cols.Bound(u => u.DisputeId).Title("Id").ClientTemplate("<a href='" + "dispute" + "/#=DisputeId#'>#=DisputeId#</a>");
+            cols.Bound(u => u.CompliantOrganization).Title("Bayi Adı");
+            cols.Bound(u => u.Title).Title("Başlık");
+            cols.Bound(u => u.Type).Title("Tipi");
+            cols.Bound(u => u.State).Title("Durumu");
+            cols.Bound(u => u.RefNumber).Title("Referans No");
+            cols.Bound(u => u.Created).Format("{0:dd.MM.yyyy}").Title("Başlangıç Tarihi");
+            cols.Bound(u => u.Updated).Format("{0:dd.MM.yyyy}").Title("Kapanış Tarihi");
+            cols.Template(u => u.DisputeId).Title("").ClientTemplate("<a href='" + "dispute" + "/#=DisputeId#'>Görüntüle</a>");
+        })
+                .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("GetDisputes", "Tickets")).PageSize(50))
+                .Groupable()
+                .Filterable()
+                .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 25, 50, 100, 1000 }).ButtonCount(5))
+                .Sortable()
+            )
+
+        </div>
+    </div>
+    <!-- Disputes List -->
+</section>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        kendo.culture("tr-TR");
+    </script>
+
+}
+

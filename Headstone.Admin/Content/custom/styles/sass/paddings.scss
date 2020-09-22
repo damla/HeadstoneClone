@@ -1,0 +1,67 @@
+﻿$padding-list: 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 100;
+
+// Media based margin top exports
+@each $val in $padding-list {
+    .p-xs-#{$val} {
+        padding: #{$val}px;
+    }
+
+    .pl-xs-#{$val} {
+        padding-left: #{$val}px;
+    }
+
+    .pr-xs-#{$val} {
+        padding-right: #{$val}px !important;
+    }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    @each $val in $padding-list {
+        .p-sm-#{$val} {
+            padding: #{$val}px;
+        }
+
+        .pl-sm-#{$val} {
+            padding-left: #{$val}px;
+        }
+
+        .pr-sm-#{$val} {
+            padding-right: #{$val}px !important;
+        }
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    @each $val in $padding-list {
+        .p-md-#{$val} {
+            padding: #{$val}px;
+        }
+
+        .pl-md-#{$val} {
+            padding-left: #{$val}px;
+        }
+
+        .pr-md-#{$val} {
+            padding-right: #{$val}px !important;
+        }
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    @each $val in $padding-list {
+        .p-lg-#{$val} {
+            padding: #{$val}px;
+        }
+
+        .pl-lg-#{$val} {
+            padding-left: #{$val}px;
+        }
+
+        .pr-lg-#{$val} {
+            padding-right: #{$val}px !important;
+        }
+    }
+}

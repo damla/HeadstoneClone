@@ -1,0 +1,126 @@
+﻿@model Headstone.UI.Models.ViewModels.BasketViewModel
+@{
+    ViewBag.Title = "Sepet";
+}
+
+<!-- cart section start -->
+<section class="cart-sec">
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="cart.html" method="post" class="cart-form">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="cart-pd-thumb">Ürün</th>
+                                <th class="cart-pd-desc">Açıklaması</th>
+                                <th class="cart-pd-qty">Miktar</th>
+                                <th class="cart-pd-price">Birim Fiyatı</th>
+                                <th class="cart-pd-total">Toplam</th>
+                                <th class="cart-pd-edit">Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.BasketItems)
+                            {
+                                <tr class="b-@item.BasketItemID" id="basketItemId" data-lineid="@item.BasketItemID">
+                                    <td class="cart-pd-thumb">
+                                        <img src="~/Content/Images/Icons/products/cart/1.jpg" alt="">
+                                    </td>
+                                    <td class="cart-pd-desc" data-title="Açıklaması">
+                                        <h6>@item.ProductName</h6>
+                                        @item.ProductDescription
+                                    </td>
+                                    <td class="cart-pd-qty" data-title="Miktar">
+                                        <div class="quantity">
+                                            <span id="decressQnt" onclick="changeLineQuantity(this)" class="decressQnt"><i class="fas fa-minus"></i></span>
+                                            <input id="qntty" class="qnttinput" type="number" value="@item.Quantity" min="1">
+                                            <span id="incressQnt" onclick="changeLineQuantity(this)" class="incressQnt"><i class="fas fa-plus"></i></span>
+                                        </div>
+                                    </td>
+                                    <td class="cart-pd-price" data-title="Birim Fiyatı">$@item.ListPrice</td>
+                                    <td class="cart-pd-total" data-title="Toplam">$@item.TotalListPrice</td>
+                                    <td class="cart-pd-edit" data-title="Değiştir">
+                                        <a href="javascript:void(0);" onclick="removeLine(this)"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <form class="discount-form shopping-form" action="cart.html">
+                    <h6>İndirim Kuponu</h6>
+                    <label for="discount_code">Kuponunuz var ise lütfen buraya giriniz.</label>
+                    <input id="discount_code" type="text">
+                    <button class="btn btn-filled">UYGULA</button>
+                </form>
+            </div>
+            <div class="col-6">
+                <div class="cart-total">
+                    <p>Alt Toplam<span>$@Model.TotalPrice</span></p>
+                    <p>Liste Indirimleri<span>- $@(Model.TotalPrice-Model.TotalOldPrice)</span></p>
+                    <p>Kampanya Indirimleri<span>- $@(Model.TotalOldPrice-Model.TotalListPrice)</span></p>
+                    <p>Toplam<span>$@Model.TotalListPrice</span></p>
+                    <a href="~/odeme" class="btn btn-filled">Ödeme Ekranına Git</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- cart section end -->
+
+<script>
+    function changeLineQuantity(sender) {
+        debugger;
+        var lineId = sender.parentElement.parentElement.parentElement.dataset["lineid"];
+        if (sender.id == "incressQnt") {
+            var quantity = 1;
+        } else {
+            var quantity = -1;
+        }
+        var controller = "basket";
+        var service = "changelinequantity";
+
+        var data = {
+            BasketItemID: lineId,
+            Quantity: quantity
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/" + controller + "/" + service,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                location.reload();
+            }
+        });
+    };
+
+    function removeLine(sender) {
+        debugger;
+        var lineId = sender.parentElement.parentElement.dataset["lineid"];
+        var controller = "basket";
+        var service = "removeline";
+
+        var data = {
+            BasketItemID: lineId,
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/" + controller + "/" + service,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                location.reload();
+            }
+        });
+    };
+</script>

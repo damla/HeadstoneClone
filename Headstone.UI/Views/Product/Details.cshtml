@@ -1,0 +1,147 @@
+﻿@model Headstone.UI.Models.ViewModels.ProductViewModel
+@{
+    ViewBag.Title = "Ürün Detay";
+}
+
+<section class="shop-details-sec">
+    <div class="container mt-3">
+        <div class="row ml-5">
+            <div class="col-md-7">
+                <div class="product-preview">
+                    <figure class="preview-caro owl-carousel" data-slider-id="1">
+                        <img src="~/Content/images/Icons/products/shop/b1.jpg" alt="">
+                        <img src="~/Content/images/Icons/products/shop/b1.jpg" alt="">
+                        <img src="~/Content/images/Icons/products/shop/b1.jpg" alt="">
+                        <img src="~/Content/images/Icons/products/shop/b1.jpg" alt="">
+                    </figure>
+                    <div class="preview-thumb owl-thumbs" data-slider-id="1">
+                        <a href="javascript:void(0)" class="owl-thumb-item"><img src="~/Content/images/Icons/products/shop/1.jpg" alt=""></a>
+                        <a href="javascript:void(0)" class="owl-thumb-item"><img src="~/Content/images/Icons/products/shop/2.jpg" alt=""></a>
+                        <a href="javascript:void(0)" class="owl-thumb-item"><img src="~/Content/images/Icons/products/shop/3.jpg" alt=""></a>
+                        <a href="javascript:void(0)" class="owl-thumb-item"><img src="~/Content/images/Icons/products/shop/4.jpg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="product-info">
+                    <h2 class="single-pd-title">@Model.Name <br>@Model.ShortDescription</h2>
+                    <div class="ratings">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            if (i < Model.AverageRating)
+                            {
+                                <a href="#" class="filled"><i class="far fa-star"></i></a>
+                            }
+                            else
+                            {
+                                <a href="#"><i class="far fa-star"></i></a>
+                            }
+
+                        }
+                        <span class="review-count">@Model.AverageRating Yıldız</span>
+                    </div>
+                    <p class="product-price">$@Model.ListPrice <small>$@Model.Price</small></p>
+                    <form action="#">
+                        <div class="mb-4"></div>
+                        <div class="quantity-box mr-3">
+                            <label>Adet: </label>
+                            <div class="quantity">
+                                <span class="decressQnt"><i class="fas fa-minus"></i></span>
+                                <input id="qnttinput" class="qnttinput" type="number" value="1" min="1">
+                                <span class="incressQnt"><i class="fas fa-plus"></i></span>
+                            </div>
+                        </div>
+                        <label>Durum: <span class="color-red">MEVCUT</span></label>
+                        <div class="bb-1x-default"></div>
+                        <div class="social-icons">
+                            <label>Paylaş: </label>
+                            <a href="#" style="color: #45619d"><i class="fab fa-facebook-square"></i></a>
+                            <a href="#" style="color: #cf4539"><i class="fab fa-google-plus-g"></i></a>
+                            <a href="#" style="color: #42c0fb"><i class="fab fa-twitter"></i></a>
+                            <a href="#" style="color: #009ee5"><i class="fab fa-skype"></i></a>
+                            <a href="#" style="color: #ec9f21"><i class="fas fa-rss"></i></a>
+                        </div>
+                        <button type="button" class="single-add-to-cart btn btn-round btn-filled" onclick="AddToBasket();"><i class="fas fa-shopping-cart"></i> Sepete Ekle</button>
+                        <a href="javascript:void(0)" onclick="addFavItem()" class="pd-icon fav"><i class="far fa-heart"></i></a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-desc">
+                    <ul class="nav nav-pills">
+                        <li><a class="active" data-toggle="pill" href="#description">Tanım</a></li>
+                        <li><a data-toggle="pill" href="#item_review">Yorumlar</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="description" class="tab-pane fade in show active">
+                            <p>@Model.ShortDescription</p>
+                        </div>
+                        <div id="item_review" class="tab-pane fade">
+                            @foreach (var item in Model.Comments)
+                            {
+                                <h5>@item.Commenter.Firstname @item.Commenter.Lastname </h5>
+                                <div class="rating">
+                                    @for (int i = 0; i < item.Rating; i++)
+                                    {
+                                        <a href="#"><i class="fas fa-star"></i></a>
+                                    }
+                                </div>
+                                <p>@item.Comment</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function AddToBasket() {
+        var productId = @Model.ProductId;
+        var quantity = $('#qnttinput')[0].value;
+
+            var controller = "basket";
+            var service = "addtobasket";
+
+            var data = {
+                ProductId: productId,
+                Quantity: quantity
+            }
+
+         $.ajax({
+             type: "POST",
+             url: "/" + controller + "/" + service,
+             data: JSON.stringify(data),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 debugger;
+                 $('#miniCartDiv').html("");
+                 $('#miniCartDiv').html(response.Html);
+             },
+            });
+    };
+
+    function addFavItem() {
+        var productId = @Model.ProductId;
+
+            var data = {
+                productId: productId,
+            }
+
+         $.ajax({
+             type: "POST",
+             url: "/addtofav",
+             data: JSON.stringify(data),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 location.reload();
+             },
+            });
+    };
+</script>

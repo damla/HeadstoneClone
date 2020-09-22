@@ -1,0 +1,102 @@
+﻿@model Headstone.AI.Models.ViewModels.CategoryViewModel
+
+@{
+    ViewBag.Title = "Yeni Kategori";
+    Session["PageName"] = "categories";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/Select2/css/core.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/paddings.css" />
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    @* Check for errors *@
+    @if (Model.Errors.Any())
+    {
+        foreach (var error in Model.Errors)
+        {
+            <div class="row" id="error">@error</div>
+        }
+    }
+    <div class="mb20">
+        <h4>Yeni Kategori</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                @*<p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+                @* if model has any errors, return error *@
+
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- New Category Form -->
+    @using (Html.BeginForm("New", "Categories", FormMethod.Post, new { @class = "mw1100 val-A", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-8 col-xs-12 pl-md-0">
+                @Html.HiddenFor(x => Model.CategoryId)
+                <div class="col-xs-12 col-md-6 form-group">
+                    @Html.LabelFor(x => Model.Name)
+                    @Html.TextBoxFor(x => Model.Name, new { @class = "form-control", data_rule_required = "true" })
+                </div>
+                <div class="col-xs-12 col-md-6 form-group">
+                    @Html.LabelFor(x => Model.Type)
+                    @Html.DropDownListFor(x => Model.Type, Model.Types, new { @class = "form-control", data_rule_required = "true" })
+                </div>
+                <div class="col-xs-12 col-md-6 form-group">
+                    @Html.LabelFor(x => Model.Status)
+                    @Html.DropDownListFor(x => Model.Status, Model.Statuses, new { @class = "form-control", data_rule_required = "true" })
+                </div>
+
+                <div class="col-xs-12 col-md-6 form-group">
+                    @Html.LabelFor(x => Model.ParentId)
+                    @Html.DropDownListFor(x => Model.ParentId, Model.ParentList, new { @class = "form-control select2-white select2-single" })
+                </div>
+                <div class="col-xs-12 col-md-6 form-group">
+
+                    @Html.LabelFor(x => Model.ShortDescription)
+                    @Html.TextAreaFor(x => Model.ShortDescription, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4 form-group pl-md-0">
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input id="avatarUpload" type='file' accept=".png, .jpg, .jpeg" onchange="imgUploadReadURL(this, 'avatar');" name="UploadedAvatar" />
+                        <label for="avatarUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <!--
+                        If this modal called by new user view, then remove the background image from inline styling. Instead,
+                        include the following path: /Content/Files/Avatars/avatar-na.jpg
+                        -->
+                        <div data-upload-view="avatar" style="background-image: url('/Content/Files/Avatars/avatar-na.jpg');"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <!-- Reseller Detail Edit Button -->
+                <button type="submit" onclick="preSubmit(this)" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20">Kaydet</button>
+            </div>
+        </div>
+    }
+    <!-- End of New Category Form -->
+</section>
+
+
+@section scripts{
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.js"></script>
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.custom.js"></script>
+    <script src="/Content/vendor/plugins/Select2/select2.full.min.js"></script>
+    <script src="/Content/vendor/plugins/jquerymask/jquery.maskedinput.min.js"></script>
+    <script src="/Content/custom/js/default.js"></script>
+}

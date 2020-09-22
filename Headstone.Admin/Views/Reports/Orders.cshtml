@@ -1,0 +1,85 @@
+﻿@model Headstone.AI.Models.ViewModels.ReportsHomeViewModel
+
+@{
+    ViewBag.Title = "Sipariş Raporları";
+    Session["PageName"] = "reports";
+}
+
+@section head{
+    <!-- Require to Excell Export -->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
+
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/messages/kendo.messages.tr-TR.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/cultures/kendo.culture.tr-TR.min.js"></script>
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb40">
+        <h4>Satış Raporları</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="text-muted">
+                    Siparişleri belirli bir sütuna göre gruplamak için lütfen bu sütunun başlığını aşağıda belirtilen alana sürükleyip bırakınız. Sıralama yapmak için ise lütfen ilgili sütunun adına, filtreleme için ise ilgili sütunun isminin sağında bulunan ok imlecine tıklayınız.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+
+    <div class="row">
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<Headstone.AI.Models.ViewModels.OrderReportViewModel>().Name("Reports").Columns(col =>
+            {
+                col.Bound(u => u.OrderId).Title("ID");
+                col.Bound(u => u.ProductName).Title("Ürün Adı");
+                col.Bound(u => u.Created).Format("{0:dd.MM.yyyy}").Title("Sipariş Tarihi");
+                col.Bound(u => u.Trademark).Title("Marka");
+                col.Bound(u => u.Categories).Title("Kategori");
+                col.Bound(u => u.ResellerName).Title("Satıcı Bayii");
+                col.Bound(u => u.UnitPrice).Title("Birim Fiyatı");
+                col.Bound(u => u.Price).Title("Satış Fiyatı");
+                col.Bound(u => u.Quantity).Title("Adet");
+                col.Bound(u => u.TotalPrice).Title("Toplam Sipariş Tutarı");
+                col.Bound(u => u.Fullname).Title("Müşteri Ad-Soyad");
+                col.Bound(u => u.DeliveryAddress).Title("Teslimat Adresi");
+                col.Bound(u => u.City).Title("İl");
+                col.Bound(u => u.Phone).Title("Telefon Numarası");
+                col.Bound(u => u.OrderChannel).Title("Sipariş Kanalı");
+                col.Bound(u => u.OrderChannelResponse).Title("Kanal Cevabı");
+                col.Bound(u => u.PosAccessCode).Title("Pos Erişim Kodu");
+            })
+            .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("GetOrders", "Reports")).PageSize(50))
+             .ToolBar(excel => excel.Excel())
+            .Groupable()
+            .Filterable()
+            .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 25, 50, 100, 1000 }).ButtonCount(5))
+            .Sortable()
+            .Filterable(f => f.Mode(GridFilterMode.Menu))
+            .Selectable(a => a.Mode(GridSelectionMode.Multiple))
+            .Excel(e => e
+                .FileName("Sipariş Listesi.xls")
+                .Filterable(true)
+                .AllPages(true)
+                )
+            )
+
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script type="text/javascript">
+        kendo.culture("tr-TR");
+    </script>
+}

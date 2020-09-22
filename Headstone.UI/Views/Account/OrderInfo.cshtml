@@ -1,0 +1,52 @@
+﻿@model Headstone.UI.Models.ViewModels.OrderPageViewModel
+@{
+    ViewBag.Title = "OrderInfo";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding:0">
+            <form action="cart.html" method="post" class="cart-form">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="cart-pd-thumb">Ürün</th>
+                            <th class="cart-pd-desc">Açıklaması</th>
+                            <th class="cart-pd-model">Sipariş No</th>
+                            <th class="cart-pd-price">Sipariş Tarihi</th>
+                            <th class="cart-pd-qty">Miktar</th>
+                            <th class="cart-pd-total">Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ItemsOrder)
+                        {
+                            var lines = item.Lines;
+                            foreach (var product in lines)
+                            {
+                                <tr>
+                                    <td class="cart-pd-thumb">
+                                        <img src="~/Content/Images/Icons/products/cart/1.jpg" alt="">
+                                    </td>
+                                    <td class="cart-pd-desc" data-title="Açıklaması">
+                                        <h6>@Model.ItemsProducts.FirstOrDefault().Name</h6>
+                                        @Model.ItemsProducts.FirstOrDefault().ShortDescription
+                                    </td>
+                                    <td class="cart-pd-model" data-title="Sipariş No">@item.OrderID</td>
+
+                                    <td class="cart-pd-price" data-title="Sipariş Tarihi">@product.Created.ToShortDateString()</td>
+                                    <td class="cart-pd-qty" data-title="Miktar"> @product.Quantity </td>
+
+                                    <td class="cart-pd-total" data-title="Toplam">@item.TotalPrice</td>
+                                </tr>
+
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "Ödemeler";
+    Session["PageName"] = "transactions";
+}
+@section head{
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/messages/kendo.messages.tr-TR.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/cultures/kendo.culture.tr-TR.min.js"></script>
+}
+<section id="content" class="animated fadeIn">
+    <div class="mb20">
+        <h4>Ödemeler</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="text-muted">
+                    Ödemeleri belirli bir sütuna göre gruplamak için lütfen bu sütunun başlığını aşağıda belirtilen alana sürükleyip bırakınız. Sıralama yapmak için ise lütfen ilgili sütunun adına, filtreleme için ise ilgili sütunun isminin sağında bulunan ok imlecine tıklayınız.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<Headstone.AI.Models.ViewModels.TransactionViewModel>().Name("Transactions").Columns(cols =>
+                 {
+                     cols.Bound(u => u.TransactionId).Title("ID");
+                     cols.Bound(u => u.UserId).Title("Müşteri Id");
+                     cols.Bound(u => u.FullName).Title("Müşteri Adı");
+                     cols.Bound(u => u.Amount).Title("Miktarı");
+                     cols.Bound(u => u.TransactionDate).Format("{0:dd.MM.yyyy}").Title("Ödeme Tarihi");
+                     cols.Bound(u => u.Amount).Title("Tutar");
+                     cols.Bound(u => u.Account).Title("Kart Numarası");
+                })
+                .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("GetTransactions", "Transactions")).PageSize(50))
+                .Groupable()
+                .Filterable()
+                .ClientDetailTemplateId("transaction-template")
+                .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 25, 50, 100, 1000 }).ButtonCount(5))
+                .Sortable()
+                .Events(events => events.DataBound("dataBound"))
+            )
+        </div>
+    </div>
+</section>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        kendo.culture("tr-TR");
+    </script>
+    <script id="transaction-template" type="text/kendo-tmpl">
+        @(Html.Kendo().TabStrip()
+                .Name("tabStrip_#=TransactionId#")
+                .SelectedIndex(0)
+                .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+                .Items(items =>
+                {
+                    items.Add().Text("Detay").Content(@<text>
+                                <legend></legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-5">
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Toplam Miktar
+                                            </label>
+                                            #=Amount#
+                                        </div>
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Taksit Miktarı
+                                            </label>
+                                            #=InstallmentAmount#
+                                        </div>
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Yetkilendirme Kodu
+                                            </label>
+                                            #=ChannelAuthCode#
+                                        </div>
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Ödeme Kanalının Cevabı
+                                            </label>
+                                            #=ChannelResponse#
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Taksit Sayısı
+                                            </label>
+                                            #=Installments#
+                                        </div>
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Taksit Faiz Oranı
+                                            </label>
+                                            #=InstallmentInterest#
+                                        </div>
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Referans Kodu
+                                            </label>
+                                            #=RefNumber#
+                                        </div>
+                                        <div class="ym-gbox ym-fbox-text detail-name-box">
+                                            <label class="detail-name-label">
+                                                Ödeme Durumu
+                                            </label>
+                                            #=State#
+                                        </div>
+                                    </div>
+                                </div>
+                                <legend></legend>
+
+                    </text>);
+})
+.ToClientTemplate())
+    </script>
+
+    <script>
+        function dataBound() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
+        }
+    </script>
+
+    <style>
+        .k-detail-cell .k-tabstrip .k-content {
+            padding: 0.2em;
+        }
+
+        .employee-details ul {
+            list-style: none;
+            font-style: italic;
+            margin: 15px;
+            padding: 0;
+        }
+
+            .employee-details ul li {
+                margin: 0;
+                line-height: 1.7em;
+            }
+
+        .detail-name-label {
+            display: inline-block;
+            width: 166px;
+            padding-right: 10px;
+            text-align: right;
+            font-style: normal;
+            font-weight: bold;
+        }
+    </style>
+
+}

@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Kullanıcılar";
+    Session["PageName"] = "users";
+}
+
+@section head{
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/messages/kendo.messages.tr-TR.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/cultures/kendo.culture.tr-TR.min.js"></script>
+}
+
+<section id="content" class="animated fadeIn">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>Kullanıcılar</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="text-muted">
+                    Kullanıcıları belirli bir sütuna göre gruplamak için lütfen bu sütunun başlığını aşağıda belirtilen alana sürükleyip bırakınız. Sıralama yapmak için ise lütfen ilgili sütunun adına, filtreleme için ise ilgili sütunun isminin sağında bulunan ok imlecine tıklayınız.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- User List -->
+    <div class="row">
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<Headstone.AI.Models.ViewModels.UserViewModel>().Name("Users").Columns(cols =>
+                 {
+                     cols.Bound(u => u.Id).Title("ID").ClientTemplate("<a href='" + Url.Action("Details", "Users") + "/#=Id#'>#=Id#</a>"); ;
+                     cols.Bound(u => u.Fullname).Title("Adı Soyadı");
+                     cols.Bound(u => u.Email).Title("E-Posta");
+                     cols.Bound(u => u.RolesString).Title("Roller");
+                     cols.Bound(u => u.Created).Format("{0:dd.MM.yyyy}").Title("Kayıt Tarihi");
+                     cols.Bound(u => u.StatusName).Title("Durum");
+                  // cols.Bound(u => u.PermissionsString).Title("İzinler");
+                     cols.Template(u => Html.ActionLink("Görüntüle", "View", new { id = u.Id })).ClientTemplate("<a href='" + Url.Action("Details", "Users") + "/#=Id#'>Görüntüle</a>");
+                })
+                .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("GetUsers", "Users")).PageSize(50))
+                .Groupable()
+                .Filterable()
+                .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 25, 50, 100, 1000 }).ButtonCount(5))
+                .Sortable()
+            )
+        </div>
+    </div>
+    <!-- End of User List -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        kendo.culture("tr-TR");
+    </script>
+    <script type="text/javascript">
+        function Display(eventArgs) {
+            @*var data = this.dataItem($(eventArgs.currentTarget).closest("tr"));
+            window.location.href = "@Url.Action("Edit", "Category")" + "?id=" + data.CategoryId;*@
+        }
+
+        function EditItem(eventArgs) {
+            @*var data = this.dataItem($(eventArgs.currentTarget).closest("tr"));
+            window.location.href = "@Url.Action("Edit", "Category")" + "?id=" + data.CategoryId;*@
+        }
+
+        function DeleteItem(eventArgs) {
+            @*var data = this.dataItem($(eventArgs.currentTarget).closest("tr"));
+            if (window.confirm("@Html.Raw(Resources.Products.AreYouSureToDeleteProduct)")) {
+                $.ajax({
+                    url: "@Url.Action("Delete", "Category")",
+                    type: "POST",
+                    data: { id: data.CategoryId },
+                    async: true,
+                    cache: false
+                }).done(function (response) {
+                    $("#Categories").data("kendoGrid").dataSource.read();
+                    $("#Categories").data("kendoGrid").refresh();
+                });
+            }*@
+        }
+    </script>
+}
+

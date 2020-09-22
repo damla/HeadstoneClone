@@ -1,0 +1,100 @@
+﻿@model Headstone.AI.Models.ViewModels.CreateProductViewModel
+@{
+    ViewBag.Title = "Yeni Ürün";
+    Session["PageName"] = "products";
+}
+
+
+@section headfirstentry{
+
+    <link href="~/Content/Plugins/Dropzone/dropzone.min.css" rel="stylesheet" />
+    <link href="~/Content/Styles/Css/Form/Public/Dropzone.css" rel="stylesheet" />
+}
+
+<section id="content" class="animated fadeIn">
+    <div class="ph10">
+        <h2>Yeni Ürün</h2>
+
+        @if (!Model.IsEdit)
+        {
+            using (Html.BeginForm("New", "Products", FormMethod.Post, new { @class = "mw1100 val-A", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => Model.TempPictureKey)
+                @Html.Partial("Edit", Model);
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { @class = "mw1100 val-A", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(p => Model.ProductId)
+                @Html.HiddenFor(x => Model.TempPictureKey)
+                @Html.Partial("Edit", Model);
+            }
+        }
+
+    </div>
+</section>
+
+@section scripts{
+
+    <script src="/Content/vendor/plugins/dropzone/dropzone.min.js"></script>
+    <script src="~/Content/Plugins/Dropzone/dropzone.min.js"></script>
+
+    <script>
+        (function () {
+            var fileSize_ = 20;
+            var defaultMsg = "<div class='dz-header'>Sözleşmeyi bu alana sürükleyin ya da dosya seçmek için <u>tıklayınız</u>.</div>" +
+                "<div class='dz-desc'>Sadece pdf, doc uzantılı dökümanlar kabul edilir. Dosya boyutu maksimum " + fileSize_ + " MB olmalıdır</div>";
+            var fileTooBigMsg = "Yüklenen dosya boyutu ({{filesize}} MB), izin verilen limiti ({{maxFilesize}} MB) aşmaktadır.  "
+
+            Dropzone.options.dropzoneEl = {
+                url: '/lm/files/save/Product/@Model.TempPictureKey',
+                maxFilesize: fileSize_,
+                addRemoveLinks: true,
+                acceptedFiles: "image/*,application/*",
+                dictDefaultMessage: defaultMsg,
+                dictFileTooBig: fileTooBigMsg,
+                maxFiles: 5,
+                maxfilesexceeded: function(file) {
+                    this.removeAllFiles();
+                    this.addFile(file);
+                }
+            };
+        })();
+
+
+        function deletePicture(val) {
+
+        var controller = "lm";
+        var service = "metadata";
+        var action = "/deleteproductpicture";
+
+            var picture = {
+                PictureId: val,
+                ProductId: @Model.ProductId,
+        };
+
+            $.ajax({
+                type: "POST",
+                url: "/" + controller + "/" + service + "/" + action,
+                data: JSON.stringify(picture),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response)
+                {
+                if (response.ReturnCode == 200) {
+                    $('#productpictures').html(response.Html);
+                }
+                else if (response.ReturnCode == -300) {
+                    window.alert("başarısız")
+                }
+                },
+                error: null
+        });
+        }
+    </script>
+}
+

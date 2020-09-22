@@ -1,0 +1,96 @@
+﻿@model Headstone.AI.Models.ViewModels.TrademarkViewModel
+@{
+    ViewBag.Title = "Yeni Marka";
+    Session["PageName"] = "trademarks";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/Select2/css/core.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/paddings.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/Jquery.Validation/Validation.css" />
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>Yeni Marka</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                @*<p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- New Trademark Form -->
+    @using (Html.BeginForm("New", "Trademarks", FormMethod.Post, new { @class = "mw1100 val-A", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-8 col-xs-12 pl-0">
+        @Html.HiddenFor(x => Model.TrademarkId)
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Name)
+            @Html.TextBoxFor(x => Model.Name, new { @class = "form-control", data_rule_required = "true" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.ERPCode)
+            @Html.TextBoxFor(x => Model.ERPCode, new { @class = "form-control" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.ParentId)
+            @Html.DropDownListFor(x => Model.ParentId, Model.ParentList, new { @class = "form-control select2-white select2-single" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Status)
+            @Html.DropDownListFor(x => Model.Status, Model.Statuses, new { @class = "form-control" ,data_rule_required = "true" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.LongDescription)
+            @Html.TextAreaFor(x => Model.LongDescription, new { @class = "form-control" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.ShortDescription)
+            @Html.TextAreaFor(x => Model.ShortDescription, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-4 col-xs-12 pl-0">
+        <div class="avatar-upload">
+            <div class="avatar-edit">
+                <input id="avatarUpload" type='file' accept=".png, .jpg, .jpeg" onchange="imgUploadReadURL(this, 'avatar');" name="UploadedAvatar" />
+                <label for="avatarUpload"></label>
+            </div>
+            <div class="avatar-preview">
+                <!--
+                If this modal called by new user view, then remove the background image from inline styling. Instead,
+                include the following path: /Content/Files/Avatars/avatar-na.jpg
+                -->
+                <div data-upload-view="avatar" style="background-image: url('/Content/Files/Avatars/avatar-na.jpg');"></div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Reseller Detail Edit Button -->
+                <button type="submit" onclick="preSubmit(this)" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20">Kaydet</button>
+            </div>
+        </div>
+    }
+    <!-- End of New Trademark Form -->
+</section>
+
+
+@section scripts{
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.js"></script>
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.custom.js"></script>
+    <script src="/Content/vendor/plugins/Select2/select2.full.min.js"></script>
+    <script src="/Content/vendor/plugins/jquerymask/jquery.maskedinput.min.js"></script>
+    <script src="/Content/custom/js/default.js"></script>
+}

@@ -1,0 +1,37 @@
+﻿@model Headstone.AI.Models.ViewModels.HeaderViewModel
+@{
+    Layout = null;
+}
+
+@if (Model.Breadcrumb.Count != 0)
+{
+    <li class="crumb-icon">
+        <a href="/">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+    foreach (var bi in Model.Breadcrumb)
+    {
+        if (bi.Link == null)
+        {
+            <li class="crumb-link">
+                @bi.Text
+            </li>
+        }
+        else
+        {
+            <li class="crumb-link">
+                <a href="@bi.Link">@bi.Text</a>
+            </li>
+        }
+
+    }
+}
+else
+{
+    <li class="crumb-icon">
+        <a href="/">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+}

@@ -1,0 +1,242 @@
+﻿@model Headstone.UI.Models.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Ana Sayfa";
+}
+
+@section slider{
+    <!-- Slider section start -->
+    <div class="container mt-3">
+        <section class="slider-sec">
+            <div class="slider-wrap owl-carousel">
+                @if (Model.Campaign != null)
+                {
+                    <div class="single-slide" style="background-image: url('/Content/Images/Icons/slider/1.jpg'); min-height: 350px; ">
+                        <div class="container">
+                            <div class="slide-con">
+                                <h2>Size ozel <br> @Model.Campaign.Product.Name adli urunde <br> @Model.Campaign.Discountmessage</h2>
+                                <a href="/urun/@Model.Campaign.Product.ProductId" class="btn btn-lg btn-filled">Hemen urunu sepete ekle!</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="single-slide" style="background-image: url('/Content/Images/Icons/slider/2.jpg'); min-height: 350px;">
+                    <div class="container">
+                        <div class="slide-con">
+                            <span class="color-red">Cay keyfi kategorisi</span>
+                            <h2>Cay keyfi kategorisindeki <br> tum urunlerde <br> %10 indirim.!</h2>
+                            <a href="/urunler/1010" class="btn btn-lg btn-filled">Bu firsati kacirma!</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-slide" style="background-image: url('/Content/Images/Icons/slider/3.jpg'); min-height: 350px;">
+                    <div class="container">
+                        <div class="slide-con">
+                            <span class="color-red">Tum urunlerde indirim!</span>
+                            <h2>Tum urunlerde <br> %5 indirim! <br> Bu firsati kacirma!</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Slider section end -->
+}
+<div class="container mt-3">
+    <!-- products recommended start -->
+    @if (Model.CurrentUser != null)
+    {
+        <div><h2>Size ozel onerilen urunler:</h2></div>
+    }
+
+    <div class="row product-layout grid-layout">
+        @if (Model.RecommendedProducts.Products.Any())
+        {
+            var counter = Model.RecommendedProducts.Products.Count();
+            foreach (var product in Model.RecommendedProducts.Products)
+            {
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-product">
+                        <figure class="products-img">
+                            <img src="/Content/images/Icons/products/shop/2.jpg" alt="">
+                            <div class="pd-hover">
+                                <a href="#"><i class="far fa-heart"></i></a>
+                            </div>
+                            <a href="javascript:void(0)" onclick="AddToBasket()" class="addTocart-btn"><i class="fas fa-shopping-cart"></i></a>
+                        </figure>
+
+                        <div class="products-desc">
+                            <h5><a href="/urun/@product.ProductId" class="product-title">@product.Name</a></h5>
+                            <span class="product-price">$@product.ListPrice <small>$@product.Price</small></span>
+                            <p>@product.ShortDescription</p>
+                            <a href="javascript:void(0)" onclick="AddToBasket()" class="btn btn-filled"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            while (counter % 3 != 0)
+            {
+                counter++;
+                <div style="visibility:hidden;" class="col-md-4 col-sm-6">
+                    <div class="single-product">
+                        <figure class="products-img">
+                            <img src="/Content/images/Icons/products/shop/2.jpg" alt="">
+                            <div class="pd-hover">
+                                <a href="#"><i class="far fa-heart"></i></a>
+                            </div>
+                            <a href="javascript:void(0)" onclick="AddToBasket()" class="addTocart-btn"><i class="fas fa-shopping-cart"></i></a>
+                        </figure>
+
+                        <div class="products-desc">
+                            <h5><a href="/" class="product-title"></a></h5>
+                            <span class="product-price">$ <small>$</small></span>
+                            <p></p>
+                            <a href="javascript:void(0)" onclick="AddToBasket()" class="btn btn-filled"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-md-4 col-sm-6">
+                <div class="single-product">
+                    <figure class="products-img">
+                        <img src="/Content/images/Icons/products/shop/2.jpg" alt="">
+                        <div class="pd-hover">
+                            <a href="#"><i class="far fa-heart"></i></a>
+                        </div>
+                        <a href="javascript:void(0)" onclick="AddToBasket(1)" class="addTocart-btn"><i class="fas fa-shopping-cart"></i></a>
+                    </figure>
+
+                    <div class="products-desc">
+                        <h5><a href="/urun/1" class="product-title">Test Product</a></h5>
+                        <span class="product-price">$150 <small>$200</small></span>
+                        <p>Short Description</p>
+                        <a href="javascript:void(0)" onclick="AddToBasket(1)" class="btn btn-filled"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="single-product">
+                    <figure class="products-img">
+                        <img src="/Content/images/Icons/products/shop/2.jpg" alt="">
+                        <div class="pd-hover">
+                            <a href="#"><i class="far fa-heart"></i></a>
+                        </div>
+                        <a href="javascript:void(0)" onclick="AddToBasket(1)" class="addTocart-btn"><i class="fas fa-shopping-cart"></i></a>
+                    </figure>
+
+                    <div class="products-desc">
+                        <h5><a href="/urun/1" class="product-title">Test Product</a></h5>
+                        <span class="product-price">$150 <small>$200</small></span>
+                        <p>Short Description</p>
+                        <a href="javascript:void(0)" onclick="AddToBasket(1)" class="btn btn-filled"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="single-product">
+                    <figure class="products-img">
+                        <img src="/Content/images/Icons/products/shop/2.jpg" alt="">
+                        <div class="pd-hover">
+                            <a href="#"><i class="far fa-heart"></i></a>
+                        </div>
+                        <a href="javascript:void(0)" onclick="AddToBasket(1)" class="addTocart-btn"><i class="fas fa-shopping-cart"></i></a>
+                    </figure>
+
+                    <div class="products-desc">
+                        <h5><a href="/urun/1" class="product-title">Test Product</a></h5>
+                        <span class="product-price">$150 <small>$200</small></span>
+                        <p>Short Description</p>
+                        <a href="javascript:void(0)" onclick="AddToBasket(1)" class="btn btn-filled"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- products recommended end -->
+        <!-- pagination start -->
+        <div class="row align-items-center mb-3">
+            <div class="col-md-8">
+                <div class="product-sorting">
+                    <div class="viewsort">
+                        <span>Görünüm :</span>
+                        <a href="javascript:void(0)" class="grid-view active"><i class="fas fa-th-large"></i></a>
+                        <a href="javascript:void(0)" class="list-view"><i class="fas fa-list"></i></a>
+                    </div>
+                    <div class="sortby c-selectBox">
+                        <span>Sırala :</span>
+                        <select>
+                            <option value="">Tercih Edilen</option>
+                            <option value="">Yeni Ürün</option>
+                        </select>
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                    <div class="showcount c-selectBox">
+                        <span>Göster :</span>
+                        <select>
+                            <option value="">11</option>
+                            <option value="">12</option>
+                        </select>
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                </div>
+            </div><div class="col-md-4">
+                <div class="pagination justify-content-md-end">
+                    <a href=""><i class="fas fa-chevron-left"></i></a>
+                    <span class="current-page">1</span>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href=""><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- pagination end -->
+    </div>
+</div>
+@section scripts{
+    <script>
+        $('#campaignModal').modal('show');
+
+        function AddToBasket(productId) {
+            var quantity = 1;
+            var controller = "basket";
+            var service = "addtobasket";
+
+            var data = {
+                ProductId: productId,
+                Quantity: quantity
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/" + controller + "/" + service,
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    debugger;
+                    $('#miniCartDiv').html("");
+                    $('#miniCartDiv').html(response.Html);
+                },
+            });
+        };
+        function addFavItem(productId) {
+            var data = {
+                productId: productId,
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/addtofav",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    location.reload();
+                },
+            });
+        };
+    </script>
+
+}

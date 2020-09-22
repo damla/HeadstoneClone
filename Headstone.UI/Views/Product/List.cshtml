@@ -1,0 +1,189 @@
+﻿@model Headstone.UI.Models.ViewModels.ProductListViewModel
+@{
+    ViewBag.Title = "Kategori İsmi";
+}
+
+<!-- Product Section start -->
+<section class="product-sec bt-1x-default">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <div class="shop sidebar">
+                    <aside class="widget categories">
+                        <h3 class="widget-title"><i class="fas fa-bars"></i> KATEGORİ </h3>
+                        <div class="widget-body">
+                            <ul>
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <li><a href="~/urunler/@category.CategoryId">@category.CategoryName</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </aside>
+                    <aside class="widget top-sale">
+                        <h2 class="widget-title text-center">Çok Satılan</h2>
+                        <div class="single-mini-pd">
+                            <img src="~/Content/images/Icons/products/shop/1.jpg" alt="">
+                            <h6><a href="shop.html">Oslo Wood Lighting - NYHET</a></h6>
+                            <span class="product-price">$290 <small>$299</small></span>
+                        </div>
+                        <div class="single-mini-pd">
+                            <img src="~/Content/images/Icons/products/shop/8.jpg" alt="">
+                            <h6><a href="shop.html">Oslo Wood Lighting - NYHET</a></h6>
+                            <span class="product-price">$290 <small>$299</small></span>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="shop-banner">
+                            <h2>Hirt's Peace Lily Plant <br>Discount <span class="color-red">50%</span> Off</h2>
+                            <a href="#">+Discover Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center mb-5">
+                    <div class="col-md-8">
+                        <div class="product-sorting">
+                            <div class="viewsort">
+                                <span>Görünüm :</span>
+                                <a href="javascript:void(0)" class="grid-view active"><i class="fas fa-th-large"></i></a>
+                                <a href="javascript:void(0)" class="list-view"><i class="fas fa-list"></i></a>
+                            </div>
+                            <div class="sortby c-selectBox">
+                                <span>Sırala :</span>
+                                <select>
+                                    <option value="">Tercih Edilen</option>
+                                    <option value="">Yeni Ürün</option>
+                                </select>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <div class="showcount c-selectBox">
+                                <span>Göster :</span>
+                                <select>
+                                    <option value="">11</option>
+                                    <option value="">12</option>
+                                </select>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pagination justify-content-md-end">
+                            <a href=""><i class="fas fa-chevron-left"></i></a>
+                            <span class="current-page">1</span>
+                            <a href="">2</a>
+                            <a href="">3</a>
+                            <a href=""><i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row product-layout grid-layout">
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="col-md-4 col-sm-6">
+                            <div class="single-product">
+                                <figure class="products-img">
+                                    <img src="~/Content/images/Icons/products/shop/2.jpg" alt="">
+                                    <div class="pd-hover">
+                                        <a href="javascript:void(0)" onclick="addFavItem(@product.ProductId)"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <a href="javascript:void(0)" onclick="AddToBasket(@product.ProductId)" class="addTocart-btn"><i class="fas fa-shopping-cart"></i></a>
+                                </figure>
+
+                                <div class="products-desc">
+                                    <h5><a href="~/urun/@product.ProductId" class="product-title">@product.Name</a></h5>
+                                    <span class="product-price">$@product.ListPrice <small>$@product.Price</small></span>
+                                    <p>@product.ShortDescription</p>
+                                    <a href="javascript:void(0)" onclick="AddToBasket(@product.ProductId)" class="btn btn-filled"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="product-sorting">
+                            <div class="viewsort">
+                                <span>Görünüm :</span>
+                                <a href="javascript:void(0)" class="grid-view active"><i class="fas fa-th-large"></i></a>
+                                <a href="javascript:void(0)" class="list-view"><i class="fas fa-list"></i></a>
+                            </div>
+                            <div class="sortby c-selectBox">
+                                <span>Sırala :</span>
+                                <select>
+                                    <option value="">Tercih Edilen</option>
+                                    <option value="">Yeni Ürün</option>
+                                </select>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <div class="showcount c-selectBox">
+                                <span>Göster :</span>
+                                <select>
+                                    <option value="">11</option>
+                                    <option value="">12</option>
+                                </select>
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                        </div>
+                    </div><div class="col-md-4">
+                        <div class="pagination justify-content-md-end">
+                            <a href=""><i class="fas fa-chevron-left"></i></a>
+                            <span class="current-page">1</span>
+                            <a href="">2</a>
+                            <a href="">3</a>
+                            <a href=""><i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- Product Section end -->
+
+<script>
+    function AddToBasket(productId) {
+        var quantity = 1;
+            var controller = "basket";
+            var service = "addtobasket";
+
+            var data = {
+                ProductId: productId,
+                Quantity: quantity
+            }
+
+         $.ajax({
+             type: "POST",
+             url: "/" + controller + "/" + service,
+             data: JSON.stringify(data),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 debugger;
+                 $('#miniCartDiv').html("");
+                 $('#miniCartDiv').html(response.Html);
+             },
+            });
+    };
+    function addFavItem(productId) {
+            var data = {
+                productId: productId,
+            }
+
+         $.ajax({
+             type: "POST",
+             url: "/addtofav",
+             data: JSON.stringify(data),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 location.reload();
+             },
+            });
+    };
+</script>

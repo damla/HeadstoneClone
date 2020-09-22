@@ -1,0 +1,66 @@
+﻿@model Headstone.AI.Models.ViewModels.UserViewModel
+
+<div class="row">
+    <div class="col-md-8 col-xs-12 pl-0">
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Firstname)
+            @Html.TextBoxFor(x => Model.Firstname, new { @class = "form-control" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Lastname)
+            @Html.TextBoxFor(x => Model.Lastname, new { @class = "form-control" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Email)
+            @Html.TextBoxFor(x => Model.Email, new { @class = "form-control", @readonly = "readonly", required = true })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.PhoneNumber)
+            @Html.TextBoxFor(x => Model.PhoneNumber, new { @class = "form-control", autocomplete = "off", data_mask = "phone", id = "phoneNumber" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.MobileNumber)
+            @Html.TextBoxFor(x => Model.MobileNumber, new { @class = "form-control", autocomplete = "off", data_mask = "phone", id = "mobileNumber", required = true  })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Gender)
+            @Html.DropDownListFor(x => Model.Gender, Model.GenderList, new { @class = " form-control col-xs-12 " })
+        </div>
+
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.RoleId, "Kullanıcı Rolü");
+            @Html.DropDownListFor(x => Model.RoleId, Model.RoleList, new { @class = "form-control col-xs-12", data_rule_required = "true" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.SelectedStatus)
+            @Html.DropDownListFor(x => Model.SelectedStatus, Model.AccountStatusList, new { @class = "form-control col-xs-12", required = true  })
+        </div>
+          <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.City)
+            @Html.DropDownListFor(x => Model.City, Model.CityList, new { @class = "form-control col-xs-12" })
+        </div>
+        </div>
+    <div class="col-md-4 col-xs-12 pl-0">
+        <div class="avatar-upload">
+            <div class="avatar-edit">
+                <input id="avatarUpload" type='file' accept=".png, .jpg, .jpeg" onchange="imgUploadReadURL(this, 'avatar');" name="UploadedAvatar" />
+                <label for="avatarUpload"></label>
+            </div>
+            <div class="avatar-preview">
+                <!--
+                If this modal called by new user view, then remove the background image from inline styling. Instead,
+                include the following path: /Content/Files/Avatars/avatar-na.jpg
+                -->
+                <div data-upload-view="avatar" style="background-image: url('/Content/Files/Avatars/avatar-na.jpg');"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $('input[id="phoneNumber"]').mask('+90 (000) 000 00 00');
+    </script>
+
+}

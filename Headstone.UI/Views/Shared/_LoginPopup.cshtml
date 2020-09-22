@@ -1,0 +1,39 @@
+﻿@model Headstone.UI.Models.ViewModels.LoginViewModel
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 400px; align-self: center;" role="document">
+        <div class="modal-content" id="signInContent">
+            <button type="button" id="signInClose" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body mt-2 pb-0 mx-2">
+                <div class="form-wrap w-100 px-4 py-3 mb-2">
+                    <div class="row container m-0 pt-2">
+                        <img class="header-img w-100 mb-3" src="~/Content/Images/Icons/logo.png" alt="headstone_logo">
+
+                        <form method="POST" action="giris" class="w-100">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group d-block login-form">
+                                <label for="email" class="mb-1 text-muted float-left">E-Posta Adresi</label>
+                                <input type="email" name="Email" id="email" class="form-control login-input">
+                            </div>
+                            <div class="form-group d-block login-form">
+                                <label for="password" class="mb-1 text-muted float-left">Şifre</label>
+                                <input type="password" name="Password" for="password" class="form-control login-input">
+                            </div>
+                            <button type="submit" class="btn btn-filled">GİRİŞ YAP</button>
+                            <div class="d-sm-flex justify-content-between">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="cb-remember" />
+                                    <label class="custom-control-label" for="cb-remember">Beni Hatırla</label>
+                                </div>
+                                <span><a href="#" class="color-red">Şifremi unuttum</a></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

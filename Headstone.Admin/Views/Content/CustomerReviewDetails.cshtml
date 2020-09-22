@@ -1,0 +1,243 @@
+﻿@model Headstone.AI.Models.ViewModels.CustomerReviewDetailsViewModel
+@{
+    ViewBag.Title = "Yorum ve Puan Detayları";
+    Session["PageName"] = "orders";
+}
+
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/paddings.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/margins.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/heights.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/flex.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/borders.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/Magnific/magnific.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/magnific/magnific-popup.css">
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>Yorum# @Model.CustomerReview.CommentId</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                @*<p class="text-muted">Note that the page header above may not be needed since it's been already inc8ded in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Tab Structure -->
+    <div class="tab-block mb25">
+        <!-- Tab Navi Items -->
+        <ul class="nav nav-tabs tabs-border">
+            <li class="active">
+                <a href="#tab1_1" data-toggle="tab">Temel Bilgiler</a>
+            </li>
+            <li>
+                <a href="#tab1_2" data-toggle="tab">İçerik</a>
+            </li>
+        </ul>
+        <!-- End of Tab Navi Items -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Details Tab -->
+            <div id="tab1_1" class="tab-pane active">
+                <div class="form-horizontal">
+                    @*<div class="label label-primary fs14">
+                            Yorum #<strong>@Model.CustomerReview.CommentId</strong>
+                        </div>*@
+
+                    <!-- Left Panel -->
+                    <div class="col-xs-12 col-md-6">
+
+                        <table class="table table-hover" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td class="w100 fw600">Bayi Adı</td>
+                                    <td>@Model.SourceUserName</td>
+                                </tr>
+                                @*<tr>
+                                        <td class="fw600">Puan</td>
+                                        <td class="text-warning fw600">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-empty"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <span class="pl-xs-10">(50)</span>
+                                        </td>
+                                    </tr>*@
+                                <tr>
+                                    <td class="fw600">Puan</td>
+                                    <td class="text-success fw600">
+                                        @for (var i = 0; i < 5; i++)
+                                        {
+                                            if (i < Model.CustomerReview.Rating)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-star-o"></i>
+                                            }
+                                        }
+                                        <span class="pl-xs-10">(@Model.CustomerReview.Rating)</span>
+                                    </td>
+                                </tr>
+                                @*<tr>
+                                        <td class="fw600">Puan</td>
+                                        <td class="text-danger fw600">
+                                            <i class="fa fa-star-half-empty"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <span class="pl-xs-10">(15)</span>
+                                        </td>
+                                    </tr>*@
+                                <tr>
+                                    <td class="fw600">Yorum</td>
+                                    <td>
+                                        <p>@Model.Description</p>
+                                        @*<p>Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Tarih</td>
+                                    <td>@Model.CustomerReview.Created.AsDateTime().ToString("dd/MM/yyyy")</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Durum</td>
+                                    <td class="admin-form">
+                                        <label class="switch switch-success switch-inline">
+                                            <input id="commentStatus" type="checkbox" onchange="changeStatus()" checked="" name="Status">
+                                            <label for="commentStatus"></label>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div hidden id="statusResponse" class="row mb20">
+                            <div class="col-xs-6">
+                                <div class="panel-alert bg-success">
+                                    <div id="responseText" class="alert alert-success" role="alert">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input hidden id="status" value="@Model.CustomerReview.Status" />
+                    <!-- End of Left Panel -->
+
+                </div>
+            </div>
+            <div id="tab1_2" class="tab-pane">
+                <!-- Right Panel -->
+                <div class="col-xs-12 col-md-6">
+
+                    <table class="table table-hover" style="width:100%;">
+                        <tbody>
+                            <tr>
+                                <td class="w150  fw600">ID</td>
+                                <td>@Model.SourceId</td>
+                            </tr>
+                            <tr>
+                                <td class="fw600">Başlık</td>
+                                <td>@Model.SourceTitle</td>
+                            </tr>
+                            <tr>
+                                <td class="fw600">Oluşturan</td>
+                                <td>@Model.SourceUserName</td>
+                            </tr>
+                            <tr>
+                                <td class="fw600">Açıklama</td>
+                                <td>
+                                    <p>@Model.Description</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw600">İçerik Türü</td>
+                                <td>
+                                    <p>@Model.CustomerReview.RelatedDataEntityType</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw600">Oluşturulma Tarihi</td>
+                                <td>
+                                    <p>@Model.Created.AsDateTime().ToString("dd/MM/yyyy")</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw600">Görseller</td>
+                                <td class="zoom-gallery zoom-gallery-type-A">
+                                    @if (Model.Images != null)
+                                    {
+                                        foreach (var url in Model.Images)
+                                        {
+                                            <a href="@url"
+                                               style="background-image:url('@url');"
+                                               class="image-popup-vertical-fit">
+                                                <img src="@url" />
+                                            </a>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- End of Right Panel -->
+            </div>
+        </div>
+
+</section>
+
+@section scripts{
+    <script src="/Content/vendor/plugins/magnific/jquery.magnific-popup.min.js"></script>
+    <script src="/Content/custom/Magnific/magnific.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var status = document.getElementById("status").value
+
+            if (status == "Active") {
+                document.getElementById("commentStatus").checked = true
+            }
+            else {
+                document.getElementById("commentStatus").checked = false
+            }
+        });
+
+        function changeStatus() {
+            var checked = document.getElementById("commentStatus").checked;
+
+            if (checked) {
+                var data = 1
+            }
+            else {
+                var data = -1
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateCommentStatus","headstone")',
+                data: { cid: @Model.CustomerReview.CommentId, status: data },
+                success: function (response) {
+                    if (response.ReturnCode == 200) {
+                        document.getElementById("responseText").innerHTML = "Ürün durumu başarıyla güncellendi."
+                    }
+                    else if (response.ReturnCode == -300) {
+                        document.getElementById("responseText").innerHTML = "Ürün durumu güncellenirken hata oluştu."
+                    }
+                        $("#statusResponse").show()
+                        setTimeout(function () {
+                            $("#statusResponse").hide()
+                        }, 2000)
+                }
+            });
+        }
+    </script>
+}

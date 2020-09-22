@@ -1,0 +1,35 @@
+.input-group-addon {
+  padding: 0; }
+  .input-group-addon .fa-calendar {
+    padding: 10px !important; }
+
+.card-view .card-item {
+  text-decoration: none !important; }
+  .card-view .card-item .panel {
+    margin-bottom: 10px; }
+    .card-view .card-item .panel .panel-heading {
+      display: flex;
+      align-items: center;
+      line-height: 14px;
+      transition: background-color 0.2s, border-color 0.2s; }
+    .card-view .card-item .panel .panel-body {
+      padding: 10px 10px 10px 15px;
+      color: #999;
+      font-size: 20px !important;
+      transition: color 0.2s, border-color 0.2s; }
+  .card-view .card-item:hover .panel .panel-heading {
+    border-color: #ddd;
+    background-color: #f6f6f6; }
+  .card-view .card-item:hover .panel .panel-body {
+    border-color: #ddd;
+    color: #555; }
+
+/* Medium devices (desktops, 992px and up) */
+/* Large devices (large desktops, 1200px and up) */
+/* Extra Large devices (large desktops, 1200px and up) */
+@media (min-width: 1400px) {
+  .card-view .card-item .panel .panel-body {
+    padding: 5px 10px 5px 15px;
+    font-size: 24px !important; } }
+
+/*# sourceMappingURL=dashboars.css.map */

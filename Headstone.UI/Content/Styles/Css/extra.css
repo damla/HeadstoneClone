@@ -1,0 +1,391 @@
+﻿/* Campaign Pop-Up */
+#campaignContent {
+    position: relative;
+}
+
+#campaignClose {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 1;
+    color: white;
+}
+
+/* Sign-in Pop-Up */
+#signInContent {
+    position: relative;
+}
+
+#signInClose {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+}
+
+/* Register Pop-Up */
+#registerContent {
+    position: relative;
+}
+
+#registerClose {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+}
+
+.checkbox-small {
+    vertical-align: top;
+}
+
+.register-form {
+    margin-bottom: 0px !important;
+}
+
+.register-input {
+    margin-bottom: 5px !important;
+}
+
+.login-form {
+    margin-bottom: 0px !important;
+}
+
+.login-input {
+    margin-bottom: 5px !important;
+}
+
+.gender {
+    width: 100%;
+}
+
+    .gender > .btn:focus {
+        box-shadow: unset !important;
+    }
+
+    .gender .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+        background-color: #4782a4 !important;
+    }
+/* Left-side Menu */
+.mblmenu-overlay {
+    position: fixed;
+}
+
+.mblmenu-container {
+    box-shadow: 0 0 20px rgba(0,0,0,0.50);
+}
+
+.mblmenu_toggler {
+    background-color: black;
+}
+
+@media (min-width: 767px) {
+    .mblmenu-overlay {
+        visibility: hidden !important;
+    }
+}
+
+/* Search Bar */
+#searchBar::placeholder {
+    font-size: 13px;
+}
+
+#search-left-bar {
+    width: 90%;
+    border-radius: 21px;
+    margin: 10px;
+}
+
+.searchContainer {
+    display: inline-flex;
+    flex: 1 1 300px;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .searchContainer {
+        display: none;
+    }
+}
+
+/*@media (min-width: 768px) and (max-width: 992px) {
+    .searchContainer {
+        visibility: hidden !important;
+    }
+}*/
+
+.searchIcon {
+    padding: 0.75rem 0.5rem;
+}
+
+.searchBox {
+    border: 0;
+    padding: 0.5rem 0.5rem 0.6rem 0;
+    flex: 1;
+}
+
+    .searchBox:focus {
+        box-shadow: unset !important;
+    }
+
+.searchButton {
+    background: #000000;
+    border: 0;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0;
+}
+
+/* Cart Menu */
+.mini-cart-con .cart-total .btn:last-child {
+    background-color: black;
+    display: block;
+}
+
+.header-cart {
+    margin-left: 3rem;
+}
+
+.userList {
+    color: #222;
+    background-color: #222;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+    padding: 20px 20px;
+    text-transform: capitalize;
+}
+
+#userTitle {
+    color: #222;
+    background-color: white;
+    border-bottom: 0.5px solid;
+}
+
+
+/* User Page - Favorites */
+
+.favorites-title {
+    padding: 10px;
+}
+
+/* User Page - Orders */
+
+.orderHeader {
+    text-align: center;
+    border: 1px solid;
+    padding: 6px;
+}
+
+.orderTable {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    padding: 3px;
+}
+
+/* User Page - Coupons */
+
+.coupon {
+    height: 170px;
+}
+
+.coupon-details {
+    padding-top: 0.25rem;
+}
+
+.coupon-body {
+    padding: 0.75rem !important;
+}
+
+    .coupon-body a {
+        float: right;
+        padding-right: 10px
+    }
+
+    .coupon-body section {
+        float: left;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+.details {
+    height: 90%;
+    padding-top: 1rem;
+}
+
+.title-seperator {
+    left: 0;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    position: absolute;
+    width: 100%;
+}
+
+.coupon-title {
+    margin-bottom: .50rem;
+}
+
+.discount-details {
+    padding-top: 0.5rem;
+}
+
+.container-text {
+    font-size: 12px;
+    line-height: 1.25rem;
+    border-right: 1px dashed rgba(0,0,0,.125);
+}
+
+@media (max-width: 992px) {
+    .container-text {
+        font-size: 12px;
+        margin: 0 !important;
+        border-right: 1px dashed rgba(0,0,0,.125);
+    }
+}
+
+@media (min-width: 767px) and (max-width: 1200px) {
+    .coupon-details {
+        padding-top: 0.25rem;
+        padding-right: 1px;
+    }
+}
+
+@media (max-width: 372px) {
+    .details {
+        height: 75%;
+        padding-top: 0;
+    }
+
+    .coupon-details {
+        padding-top: 0.25rem;
+        padding-right: 0rem;
+    }
+
+    .discount-details {
+        padding-top: 1rem;
+    }
+
+        .discount-details h4 {
+            width: 65px;
+        }
+}
+
+@media (min-width: 350px) and (max-width: 372px) {
+    .coupon-details {
+        padding-top: 0.75rem;
+    }
+}
+
+.account-info {
+}
+
+    .account-info section {
+        float: left;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .account-info .user-input {
+        float: right;
+        height: 23px;
+        width: 50%;
+        border-radius: 2px;
+        border: none;
+        background-color: #f7f7f7;
+        padding: 5px 30px 5px 10px;
+    }
+
+        .account-info .user-input:focus {
+        }
+
+    .account-info .checkBox {
+        position: relative;
+        float: right;
+        width: 90px;
+        line-height: 20px;
+        margin-top: 5px;
+    }
+
+.border-right {
+    border-right: 1px solid #ededed;
+}
+
+.account-info p {
+    margin-top: 1rem;
+    margin-bottom: .75rem;
+    color: #f74545;
+}
+
+.updateBttn {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    width: 180px;
+    height: 35px;
+    border: 1px solid #f74545;
+    color: #f74545;
+    font-size: 14px;
+    line-height: 37px;
+    margin: 0 auto;
+    float: right;
+}
+
+.address-body {
+    padding: 0.75rem !important;
+    margin-left: 10px !important;
+}
+
+    .address-body a {
+        float: right;
+        padding-right: 10px
+    }
+
+    .address-body section {
+        float: left;
+        margin-top: 8px;
+        padding-bottom: 0 !important;
+    }
+
+.address-text {
+    font-size: 12px;
+    line-height: 1.25rem;
+}
+
+.checkout-form select {
+    position: relative;
+    border-radius: 5px;
+    margin-left: 20px;
+    width: 270px;
+    border: none;
+    background: #f4f4f4;
+    padding: 5px 10px;
+}
+
+    .checkout-form select:focus {
+        outline-color: #e33;
+    }
+
+.checkout-form textarea {
+    border-radius: 5px;
+    margin-left: 20px;
+    width: 270px;
+    border: none;
+    background: #f4f4f4;
+    padding: 5px 10px;
+    height: 80px;
+}
+
+    .checkout-form textarea:focus {
+        outline-color: #e33;
+    }
+
+/* order summary */
+.check-image {
+    width:25%;
+}

@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Üye Raporları";
+    Session["PageName"] = "reports";
+}
+
+@section head{
+
+    <!-- Require to Excell Export -->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
+
+    <!-- Kendo Telerik CSS -->
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.714/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Kendo Telerik JS -->
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/messages/kendo.messages.tr-TR.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.714/js/cultures/kendo.culture.tr-TR.min.js"></script>
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>Üyelik Raporları</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="text-muted">
+                    Kullanıcıları belirli bir sütuna göre gruplamak için lütfen bu sütunun başlığını aşağıda belirtilen alana sürükleyip bırakınız. Sıralama yapmak için ise lütfen ilgili sütunun adına, filtreleme için ise ilgili sütunun isminin sağında bulunan ok imlecine tıklayınız.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+
+    <div class="row">
+        <div class="col-md-12">
+
+            @(Html.Kendo().Grid<Headstone.AI.Models.ViewModels.UserViewModel>().Name("Reports").Columns(col =>
+        {
+            col.Bound(u => u.Id).Title("ID").ClientTemplate("<a href='" + Url.Action("GetMembers", "Reports") + "/#=Id#'>#=Id#</a>");
+            col.Bound(u => u.Fullname).Title("Ad Soyad");
+            col.Bound(u => u.Email).Title("E-Posta");
+            col.Bound(u => u.RolesString).Title("Kullanıcı Tipi");
+            col.Bound(u => u.Created).Format("{0:dd.MM.yyyy}").Title("Kayıt Tarihi");
+            col.Bound(u => u.StatusName).Title("Durum");
+            col.Bound(u => u.ResellerName).Title("Bayii");
+            col.Template(u => Html.ActionLink("Görüntüle", "View", new { id = u.Id })).ClientTemplate("<a href='" + Url.Action("Details", "Users") + "?id=#=Id#'>Görüntüle</a>");
+        })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Excel().Text("Tümünü Excele Aktar");
+                toolbar.Custom().Text("Filtrelemeyi Excele Aktar").HtmlAttributes(new { id = "exportFilter" });
+            })
+            .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("GetMembers", "Reports")).PageSize(50))
+            .Groupable()
+            .Filterable()
+            .Pageable(pageable => pageable.Refresh(true).PageSizes(new int[] { 25, 50, 100, 1000 }).ButtonCount(5))
+            .Sortable()
+            .Filterable(f => f.Mode(GridFilterMode.Menu))
+            .Selectable(a => a.Mode(GridSelectionMode.Multiple))
+            .Excel(e => e
+                .FileName("Üye Listesi.xls")
+                .Filterable(true)
+                .AllPages(true)
+                )
+            )
+
+        </div>
+    </div>
+
+    <iframe id="downloadExcelFrame"></iframe>
+</section>
+
+@section scripts{
+    <script type="text/javascript">
+        kendo.culture("tr-TR");
+    </script>
+
+    <script>
+        $('#exportFilter').click(function (e) {
+            e.preventDefault();
+            var grid = $("#Reports").data("kendoGrid");
+            var selectedItems = grid.select();
+            var length = selectedItems.length;
+            var idList = [];
+            var entity = "members";
+            for (var i = 0; i < length; i++)
+            {
+                var id = grid.select()[i].firstChild.firstChild.text;
+                idList.push(id)
+            }
+
+           $.ajax({
+               url: '@Url.Action("ExportFilter", "Reports")',
+               data: { ids: idList, entity: entity },
+                async: false,
+               type: "POST",
+               success: function (e) {
+                   grid.datasource.read();
+                   debugger;
+                   $("#Reports").data("kendoGrid")._data = e;
+               }
+            })
+        });
+    </script>
+
+
+
+}

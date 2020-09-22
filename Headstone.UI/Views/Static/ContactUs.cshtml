@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Bize Ulaşın";
+}
+
+@section headfirstentry{
+    <style>
+        @@media only screen and (max-width: 767px) {
+            div.contact-info {
+                margin-top: 20px;
+            }
+        }
+    </style>
+}
+
+<!-- Contact Section start -->
+<section class="contact-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="map"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="comment-form">
+                    <h4 class="comment-title">Geri Dönüş Bırakın</h4>
+                    <form id="contact-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-field">
+                                    <label for="username">İsim Soyisim:</label>
+                                    <input id="username" type="text" name="name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-field">
+                                    <label for="useremail">Email Adresi:</label>
+                                    <input id="useremail" type="email" name="email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-field textarea">
+                            <label for="usercmmnt">Mesajınızı Yazın:</label>
+                            <textarea id="usercmmnt" name="commnets"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-filled" id="submit">Gönder</button>
+                    </form>
+                    <div id="message"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="contact-info">
+                    <h4 class="comment-title">iletisim Bilgilerimiz</h4>
+                    <p>Bize mesaj bırakın, biz size dönelim. <br /> Ayrıca bize aşağıdaki bilgilerle de ulaşabilirsiniz.</p>
+                    <a href="#"><i class="fas fa-map-marker-alt"></i> Bahçeşehir Üniversitesi</a>
+                    <a href="mailto:dotsee@one.com"><i class="fas fa-envelope"></i> info@hesadstone.com</a>
+                    <a href="tel:11987654321"><i class="fas fa-phone"></i> (+90) 555 555 55 55</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section end -->

@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- User Section start -->
+<section class="product-sec bt-1x-default">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <div class="shop sidebar">
+                    <aside class="widget categories">
+                        <h3 class="widget-title"><i class="fas fa-bars"></i> HESABIM</h3>
+                        <div class="widget-body">
+                            <ul>
+                                <li><a href="@Url.Action("UserInfo", "Account")"><i class="fas fa-user mr-2"></i>Kullanıcı Bilgilerim</a></li>
+                                <li><a href="@Url.Action("Address", "Account")"><i class="fas fa-map-marker-alt mr-2"></i>Adreslerim</a></li>
+                                <li><a href="@Url.Action("OrderInfo", "Account")"><i class="fas fa-box mr-2"></i>Siparişlerim</a></li>
+                                <li><a href="@Url.Action("Favorites", "Account")"><i class="far fa-heart mr-2"></i>Favori Ürünlerim</a></li>
+                                <li><a href="@Url.Action("Coupons", "Account")"><i class="fas fa-ticket-alt mr-2"></i>İndirim Kuponlarım</a></li>
+                            </ul>
+                        </div>
+                        <div class="userList"></div>
+                    </aside>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</section>
+<!-- User Section end -->

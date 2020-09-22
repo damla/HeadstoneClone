@@ -1,0 +1,27 @@
+﻿@model Headstone.UI.Models.ViewModels.HeaderViewModel
+
+@if (Model.Breadcrumb.Count != 0)
+{
+
+    <div class="breadcrumb py-2">
+        <div class="container pl-1">
+
+            @Html.ActionLink("ANA SAYFA", "Index", "Home")
+
+            @foreach (var bi in Model.Breadcrumb)
+            {
+                if (bi.Link == null)
+                {
+                    <span>@bi.Text</span>
+                }
+                else
+                {
+                    <a href="@bi.Link">@bi.Text</a>
+                    <span>@bi.Text</span>
+                }
+            }
+
+        </div>
+    </div>
+
+}

@@ -1,0 +1,87 @@
+.nav-tabs > li.active {
+  z-index: 10 !important; }
+
+.modal .dropdown-menu {
+  z-index: 1200 !important; }
+.modal button.close {
+  position: absolute;
+  top: calc(50% - 10px);
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: #efefef;
+  border-radius: 50%;
+  color: #aaa;
+  opacity: 1; }
+
+.zoom-gallery-type-A {
+  display: flex;
+  flex-wrap: wrap; }
+  .zoom-gallery-type-A a {
+    display: block;
+    width: 75px;
+    height: 75px;
+    margin: 2px 2px 2px 2px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.85;
+    transition: opacity 0.2s; }
+    .zoom-gallery-type-A a:hover {
+      opacity: 1; }
+    .zoom-gallery-type-A a img {
+      width: 100%;
+      height: 100%;
+      opacity: 0; }
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.responsive-table-container {
+  overflow-x: auto !important; }
+  .responsive-table-container > table {
+    width: auto;
+    min-width: 100%;
+    max-width: none; }
+    .responsive-table-container > table.data-nowrap th, .responsive-table-container > table.data-nowrap td {
+      white-space: nowrap; }
+
+.order-details .nav-tabs li {
+  padding: 0 !important; }
+  .order-details .nav-tabs li a {
+    color: #aaa; }
+.order-details .nav-tabs li.active a {
+  border-bottom: 0 !important;
+  background-color: #fff !important; }
+.order-details .tab-content {
+  background-color: #eee; }
+.order-details .left-col > .panel {
+  padding: 0;
+  background-color: transparent !important; }
+.order-details .left-col .invoice-buttons {
+  position: absolute;
+  bottom: 0; }
+.order-details .right-col {
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 1px solid #e5e5e5; }
+  .order-details .right-col .dropzone.dropzone-sm .dz-default.dz-message span.main-text {
+    width: 80%; }
+
+.d-block {
+  display: block; }
+
+/* Medium devices (desktops, 992px and up) */
+/* Large devices (large desktops, 1200px and up) */
+/* Extra Large devices (large desktops, 1200px and up) */
+@media (min-width: 1400px) {
+  .order-details .right-col {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+    border-left: 1px solid #e5e5e5; } }
+
+/*# sourceMappingURL=default.css.map */

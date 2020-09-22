@@ -1,0 +1,82 @@
+﻿.input-group-addon {
+    padding:0;
+    .fa-calendar {
+        padding: 10px !important;
+    }
+}
+
+
+.card-view {
+    .card-item {
+        text-decoration: none !important;
+
+        .panel {
+            margin-bottom: 10px;
+
+            .panel-heading {
+                display: flex;
+                align-items: center;
+                line-height: 14px;
+                transition: background-color 0.2s, border-color 0.2s;
+
+                .panel-title {
+                }
+            }
+
+            .panel-body {
+                padding: 10px 10px 10px 15px;
+                color: #999;
+                font-size: 20px !important;
+                transition: color 0.2s, border-color 0.2s;
+            }
+        }
+
+        &:hover {
+            .panel {
+                .panel-heading {
+                    border-color: #ddd;
+                    background-color: #f6f6f6;
+
+                    .panel-title {
+                    }
+                }
+
+                .panel-body {
+                    border-color: #ddd;
+                    color: #555;
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: 768px) {
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
+
+/* Extra Large devices (large desktops, 1200px and up) */
+@media (min-width: 1400px) {
+    .card-view {
+        .card-item {
+            .panel {
+                .panel-heading {
+                    .panel-title {
+                    }
+                }
+
+                .panel-body {
+                    padding: 5px 10px 5px 15px;
+                    font-size: 24px !important;
+                }
+            }
+        }
+    }
+}

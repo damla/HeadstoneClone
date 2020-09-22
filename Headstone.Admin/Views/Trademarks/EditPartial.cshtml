@@ -1,0 +1,32 @@
+﻿@model Headstone.AI.Models.ViewModels.TrademarkViewModel
+
+<div class="row">
+    <div class="col-md-8 col-xs-12 pl-0">
+        @Html.HiddenFor(x => Model.TrademarkId)
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Name)
+            @Html.TextBoxFor(x => Model.Name, new { @class = "form-control", data_rule_required ="true" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.ERPCode)
+            @Html.TextBoxFor(x => Model.ERPCode, new { @class = "form-control" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.ParentId)
+            @Html.DropDownListFor(x => Model.ParentId, Model.ParentList, new { @class = "form-control select2-white select2-single" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.Status)
+            @Html.DropDownListFor(x => Model.Status, Model.Statuses, new { @class = "form-control"  ,data_rule_required = "true" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.LongDescription)
+            @Html.TextAreaFor(x => Model.LongDescription, new { @class = "form-control" })
+        </div>
+        <div class="col-xs-6 form-group">
+            @Html.LabelFor(x => Model.ShortDescription)
+            @Html.TextAreaFor(x => Model.ShortDescription, new { @class = "form-control" })
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{688F33CF-51FD-4793-A847-6A44DD8BAA4F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Headstone.Service</RootNamespace>
+    <AssemblyName>Headstone.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.0.0\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Headstone.Framework">
+      <HintPath>..\Libraries\Headstone Framework\Headstone.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Headstone.Framework.Models">
+      <HintPath>..\Libraries\Headstone Framework\Headstone.Framework.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Headstone.Framework.SaaS">
+      <HintPath>..\Libraries\Headstone Framework\Headstone.Framework.SaaS.dll</HintPath>
+    </Reference>
+    <Reference Include="Headstone.Framework.SaaS.Models">
+      <HintPath>..\Libraries\Headstone Framework\Headstone.Framework.SaaS.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Headstone.MetaData.API.Models">
+      <HintPath>..\Libraries\Headstone Metadata\Headstone.MetaData.API.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Headstone.MetaData.Common.Models">
+      <HintPath>..\Libraries\Headstone Metadata\Headstone.MetaData.Common.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidia.Identity.API.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Lidia Identity\Lidia.Identity.API.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidia.Identity.Common.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Lidia Identity\Lidia.Identity.Common.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.15.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.15\lib\net45\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Primitives.4.3.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ProcessAttribute.cs" />
+    <Compile Include="Base\BasketItemServiceBase.cs" />
+    <Compile Include="Base\FavoriteProductServiceBase.cs" />
+    <Compile Include="Base\TransactionServiceBase.cs" />
+    <Compile Include="Base\BasketServiceBase.cs" />
+    <Compile Include="Base\CampaignPropertyServiceBase.cs" />
+    <Compile Include="Base\CampaignServiceBase.cs" />
+    <Compile Include="Base\CommentServiceBase.cs" />
+    <Compile Include="Base\CouponServiceBase.cs" />
+    <Compile Include="Base\GeoLocationServiceBase.cs" />
+    <Compile Include="Base\CommentPropertyServiceBase.cs" />
+    <Compile Include="Base\CommentTagServiceBase.cs" />
+    <Compile Include="Base\OrderLineServiceBase.cs" />
+    <Compile Include="Base\OrderServiceBase.cs" />
+    <Compile Include="Base\TaxOfficeServiceBase.cs" />
+    <Compile Include="BasketItemService.cs" />
+    <Compile Include="BasketService.cs" />
+    <Compile Include="CampaingService.cs" />
+    <Compile Include="CommentService.cs" />
+    <Compile Include="DataAccess\FavoriteProductDAO.cs" />
+    <Compile Include="FavoriteProductService.cs" />
+    <Compile Include="Interfaces\IFavoriteProduct.cs" />
+    <Compile Include="TransactionService.cs" />
+    <Compile Include="CouponService.cs" />
+    <Compile Include="DataAccess\TransactionDAO.cs" />
+    <Compile Include="DataAccess\BasketDAO.cs" />
+    <Compile Include="DataAccess\BasketItemDAO.cs" />
+    <Compile Include="DataAccess\CampaignDAO.cs" />
+    <Compile Include="DataAccess\CampaignPropertyDAO.cs" />
+    <Compile Include="DataAccess\CommentDAO.cs" />
+    <Compile Include="DataAccess\CouponDAO.cs" />
+    <Compile Include="DataAccess\GeoLocationDAO.cs" />
+    <Compile Include="DataAccess\CommentPropertyDAO.cs" />
+    <Compile Include="DataAccess\CommentTagDAO.cs" />
+    <Compile Include="DataAccess\OrderLineDAO.cs" />
+    <Compile Include="DataAccess\OrderDAO.cs" />
+    <Compile Include="DataAccess\TaxOfficeDAO.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="GeoLocationService.cs" />
+    <Compile Include="Helpers\ContentUrlHelper.cs" />
+    <Compile Include="Interfaces\IBasketItemService.cs" />
+    <Compile Include="Interfaces\ITransactionService.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
+    <Compile Include="Interfaces\IBasketService.cs" />
+    <Compile Include="Interfaces\ICampaignService.cs" />
+    <Compile Include="Interfaces\ICommentService.cs" />
+    <Compile Include="Interfaces\ICouponService.cs" />
+    <Compile Include="Interfaces\IGeoLocationService.cs" />
+    <Compile Include="Interfaces\ITaxOffice.cs" />
+    <Compile Include="Mapper\EntityMapperConfiguration.cs" />
+    <Compile Include="Mapper\Extensions\MappingExtensions.cs" />
+    <Compile Include="OrderService.cs" />
+    <Compile Include="Validators\BaseEventValidator.cs" />
+    <Compile Include="Validators\BaseRequestValidator.cs" />
+    <Compile Include="TaxOfficeService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\Campaign\CampaignPropertyCreatedValidator.cs" />
+    <Compile Include="Validators\Campaign\CampaignPropertyDeletedValidator.cs" />
+    <Compile Include="Validators\Comment\CommentPropertyCreatedValidator.cs" />
+    <Compile Include="Validators\Comment\CommentPropertyDeletedValidator.cs" />
+    <Compile Include="Validators\Comment\CommentTagCreatedValidator.cs" />
+    <Compile Include="Validators\Comment\CommentTagDeletedValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Headstone.Common\Headstone.Common.csproj">
+      <Project>{5842a477-d2b0-4a27-8b5d-dd1a40c707fd}</Project>
+      <Name>Headstone.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Headstone.Models\Headstone.Models.csproj">
+      <Project>{af379a52-bbfe-449c-b0ac-b61d6368cc99}</Project>
+      <Name>Headstone.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

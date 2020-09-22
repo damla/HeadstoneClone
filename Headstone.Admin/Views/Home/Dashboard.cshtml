@@ -1,0 +1,203 @@
+﻿@model Headstone.AI.Models.ViewModels.DashboardViewModel
+@{
+    Layout = null;
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        @*<h4>Page Header</h4>*@
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <div class="row mt-xs-40">
+        <!-- Date Range Inputs -->
+        <label class="col-xs-12">Tarih Aralığı:</label>
+        <div class="col-xs-12 col-xl-8 pl-xs-0">
+            <div class="col-xs-6 col-sm-4 col-lg-3 mw240">
+                <div class="input-group date">
+                    <span class="input-group-addon cursor">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    <input type="text" data-picker="date" class="form-control pull-right" name="daterange" id="daterangepicker1">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 mt-xs-10 mt-sm-0 pr-xs-0 pl-md-40">
+                <button type="submit" class="btn btn-md btn-block btn-primary">Filtrele</button>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-lg-2 mt-xs-10 mt-sm-0 pr-xs-0">
+                <button type="submit" class="btn btn-md btn-block btn-primary">Tüm zamanlar</button>
+            </div>
+            <!-- End of Date Range Inputs -->
+            <!-- Chart Graph -->
+            <div class="responsive-table-container col-xs-12 mt-xs-20">
+                <div class="bg-white p-xs-10" style="min-width:500px;">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- End of Chart Graph -->
+        <!-- Card View Data -->
+        <div class="card-view pl-xs-0 mt-xl-0 mt-xs-20 col-xs-12 col-xl-4">
+            <a href="/users" class="card-item col-xl-12 col-lg-4 col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-title">Üye Kullanıcı Sayısı</span>
+                    </div>
+                    <div class="panel-body">
+                        @Model.UserCount
+                        <div class="pull-right">
+                            <span class="fs11 text-danger"><i class="fa fa-arrow-down text-danger fs12 pr5"></i> Bugün  12</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/orders" class="card-item col-xl-12 col-lg-4 col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-title">Sipariş Adedi</span>
+                    </div>
+                    <div class="panel-body">
+                        @Model.OrderCount
+                        <div class="pull-right">
+                            <span class="fs11 text-warning"><i class="fa fa-circle text-warning fs12 pr5"></i> Bugün  0</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/orders" class="card-item col-xl-12 col-lg-4 col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-title fs12">İşlem Yapanların Toplam Üye Sayısına Oranı</span>
+                    </div>
+                    <div class="panel-body">
+                        % @Model.OrganizationOwnerPercentage.ToString("##.##")
+                        <div class="pull-right">
+                            <span class="fs11 text-success"><i class="fa fa-arrow-up text-success fs12 pr5"></i> Oran 12</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/transactions" class="card-item col-xl-12 col-lg-4 col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-title">Ciro</span>
+                    </div>
+                    <div class="panel-body">
+                        @Model.OrderTotal TL
+                        <div class="pull-right">
+                            <span class="fs11 text-success"><i class="fa fa-arrow-up text-success fs12 pr5"></i> Bugün  12</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/orders" class="card-item col-xl-12 col-lg-4 col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-title">Ortalama Sipariş Tutarı</span>
+                    </div>
+                    <div class="panel-body">
+                        @Model.OrderAverage TL
+                        <div class="pull-right">
+                            <span class="fs11 text-danger"><i class="fa fa-arrow-down text-danger fs12 pr5"></i> Bugün 200,10 TL</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/orders" class="card-item col-xl-12 col-lg-4 col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-title fs12">Tüm Satışarı İçindeki Toplam  Satılan Ürün Adedi</span>
+                    </div>
+                    <div class="panel-body">
+                        @Model.ProductQuantity
+                        <div class="pull-right">
+                            <span class="fs11 text-success"><i class="fa fa-arrow-up text-success fs12 pr5"></i> Bugün 2</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- End of Card View Data -->
+    </div>
+</section>
+<script src="~/Content/js/chartJs/Chart.min.js"></script>
+
+<script>
+
+        var data = [];
+        var days = [];
+
+        @foreach (var item in  Model.Chart.ToList())
+        {
+            @: data.push(@item.OrderTotal);
+            @: days.push("@item.Date.ToString()");
+        }
+
+        // Chart Init
+        var ctx = document.getElementById('chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: days,
+                datasets: [{
+                    label: 'Satış Miktarı',
+                    data: data,
+                    backgroundColor: 'rgb(74,137,220, 0.5)',
+                    borderColor: 'rgb(74,137,220, 1)',
+                    borderWidth: 1,
+                }]
+            },
+             options: {
+                    legend: {
+                        display: true
+                        },
+                    tooltips: {
+                       mode: 'label',
+                       label: 'mylabel',
+                       callbacks: {
+                           label: function(tooltipItem, data) {
+                                return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' \u20BA';
+                            },
+                        },
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                callback: function(label, index, labels) { return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' \u20BA'; },
+                                beginAtZero:true,
+                                fontSize: 10,
+                            },
+                            gridLines: {
+                                display: true
+                            },
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'TL',
+                                fontSize: 10,
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                fontSize: 10,
+                                callback: function(value) {
+                                    return new Date(value).toLocaleDateString('tr-TR', {month:'numeric', day:'numeric'/*, year:'numeric'*/});
+                                }
+                            },
+                            gridLines: {
+                                display:true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                fontSize: 10,
+                           }
+                        }]
+                    }
+                }
+        });
+</script>

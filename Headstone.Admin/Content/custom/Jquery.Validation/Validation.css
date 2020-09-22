@@ -1,0 +1,115 @@
+.val-A .parenterror label:not(.error) {
+    color: #D0021B;
+}
+
+    .val-A .parenterror label:not(.error) .tt-icon {
+        color: #D0021B;
+    }
+
+.val-A .parenterror input[type=text].error, .val-A .parenterror input[type=password].error {
+    z-index: 1;
+    border: 1px solid #D0021B !important;
+}
+
+.val-A .parenterror select.error ~ .select2 .select2-selection {
+    border: 1px solid #D0021B !important;
+}
+
+.val-A .parenterror label.error {
+    display: flex;
+    position: absolute;
+    z-index: 5;
+    right: 11px;
+    bottom: 33px;
+    height: 20px;
+    padding: 0 8px 0 8px;
+    align-items: center;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #D0021B;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: normal;
+    color: #fff;
+}
+
+    .val-A .parenterror label.error::before {
+        display: block;
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 4px;
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 7px solid #D0021B;
+    }
+
+.val-A .parenterror.err-A label.error {
+    bottom: 80px;
+}
+
+.val-A .parenterror.err-B label.error {
+    top: -60px;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    border-radius: 3px;
+}
+
+.val-A .parenterror.err-C label.error, .val-A .parenterror.err-D label.error, .val-A .parenterror.err-E label.error {
+    right: auto;
+    bottom: auto;
+    left: 0;
+    border-radius: 3px;
+}
+
+.val-A .parenterror.err-C label.error {
+    top: -35px;
+}
+
+.val-A .parenterror.err-D label.error {
+    top: -120px;
+}
+
+.val-A .parenterror.err-E label.error {
+    top: -105px;
+}
+
+.val-B .parenterror label:not(.error) {
+    color: #D0021B;
+}
+
+    .val-B .parenterror label:not(.error) .tt-icon {
+        color: #D0021B;
+    }
+
+.val-B .parenterror input[type=text].error, .val-B .parenterror input[type=password].error {
+    z-index: 1;
+    border: 1px solid #D0021B !important;
+}
+
+.val-B .parenterror select.error ~ .select2 .select2-selection {
+    border: 1px solid #D0021B !important;
+}
+
+.val-B .parenterror label.error {
+    display: flex;
+    position: absolute;
+    z-index: 5;
+    top: 7px;
+    right: 7px;
+    bottom: 50px;
+    left: auto;
+    width: auto;
+    height: 20px;
+    padding: 0 8px 0 8px;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #D0021B;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: normal;
+    color: #fff;
+}

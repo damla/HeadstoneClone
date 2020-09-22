@@ -1,0 +1,35 @@
+﻿$min-height-list: 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400;
+
+@each $val in $min-height-list {
+    .minh-xs-#{$val} {
+        min-height: #{$val}px;
+    }
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    @each $val in $min-height-list {
+        .minh-sm-#{$val} {
+            min-height: #{$val}px;
+        }
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    @each $val in $min-height-list {
+        .minh-md-#{$val} {
+            min-height: #{$val}px;
+        }
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    @each $val in $min-height-list {
+        .minh-lg-#{$val} {
+            min-height: #{$val}px;
+        }
+    }
+}

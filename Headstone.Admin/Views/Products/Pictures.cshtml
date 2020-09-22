@@ -1,0 +1,18 @@
+﻿@model Headstone.AI.Models.ViewModels.ProductPictureListViewModel
+@using Headstone.Service.Helpers
+@{
+    Layout = null;
+}
+
+@foreach (var picture in Model.Pictures)
+{
+    <div>
+        <img height="200px;" width="200px;" src="@Url.Static(picture.ImageUrl)" alt="@picture.Alt" />
+
+        @if (!Model.isActiveProduct)
+        {
+            <a onclick="deletePicture(@picture.PictureId)">Kaldır</a>
+        }
+    </div>
+
+}

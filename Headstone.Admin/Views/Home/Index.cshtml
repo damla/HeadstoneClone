@@ -1,0 +1,56 @@
+﻿@model Headstone.AI.Models.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.CssPageName = "dashboard-page";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/paddings.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/margins.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/heights.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/flex.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/borders.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/dashboars.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/daterange/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/datepicker/css/bootstrap-datetimepicker.min.css" />
+
+    <style>
+        .form-group.btn-align {
+            margin-left: -55px;
+        }
+    </style>
+}
+<div id="dashboardArea">
+    @Html.Partial("Dashboard", Model);
+</div>
+
+
+@section scripts{
+    <!-- ChartJS  JS -->
+    
+    @*<script src="/Content/custom/js/default.js"></script>*@
+
+    <script>
+        $(function (fromDate, toDate, successCallback, errorCallback) {
+            var chart = {
+                FromDate: "2020-02-01",
+                ToDate: "2020-03-01"
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "lm/order/getchart",
+                data: JSON.stringify(chart),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.ReturnCode === 200) {
+                        $("#dashboardArea").html(response.Html);
+                    }
+                },
+                error: errorCallback
+            });
+        });
+    </script>
+}

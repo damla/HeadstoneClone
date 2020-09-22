@@ -1,0 +1,501 @@
+﻿@model  Headstone.AI.Models.ViewModels.UserDetailViewModel
+@using Headstone.Service.Helpers
+@{
+    ViewBag.Title = "Kullanıcı Detayları";
+    Session["PageName"] = "users";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/datepicker/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/styles/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom/Jquery.Validation/Validation.css" />
+}
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>@Model.UserModel.Firstname @Model.UserModel.Lastname</h4>
+        <hr class="alt short">
+        <div class="row">
+            @*<div class="col-md-8">
+                    <p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>*@
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Tab Structure -->
+    <div class="tab-block mb25">
+        <!-- Tab Navi Items -->
+        <ul class="nav nav-tabs tabs-border">
+            <li class="active">
+                <a href="#tab1_1" data-toggle="tab">Temel Bilgiler</a>
+            </li>
+            <li>
+                <a href="#tab1_2" data-toggle="tab">İletişim Adresleri</a>
+            </li>
+            <li>
+                <a href="#tab1_3" data-toggle="tab">Fatura Adresleri</a>
+            </li>
+            <li>
+                <a href="#tab1_4" data-toggle="tab">Kullanıcı Rolleri</a>
+            </li>
+            <li>
+                <a href="#tab1_5" data-toggle="tab">Kullanıcı İzinleri</a>
+            </li>
+            <li>
+                <a href="#tab1_6" data-toggle="tab">Siparişler</a>
+            </li>
+            <li>
+                <a href="#tab1_7" data-toggle="tab">Ücretlendirme Bilgilendirmeleri</a>
+            </li>
+            @*<li>
+                    <a href="#tab1_8" data-toggle="tab">Aktif Alışveriş Sepeti</a>
+                </li>*@
+        </ul>
+        <!-- End of Tab Navi Items -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- User Detail Tab -->
+            <div id="tab1_1" class="tab-pane active">
+                <div class="row mb25">
+                    <!-- User Detail Table -->
+                    <div class="col-xl-6 col-md-8 pr40">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td class="w150 fw600">Ad</td>
+                                    <td>@Model.UserModel.Firstname</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Soyad</td>
+                                    <td>@Model.UserModel.Lastname</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">E-Posta</td>
+                                    <td>@Model.UserModel.Email</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Telefon</td>
+                                    <td>@Model.UserModel.PhoneNumber</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Cep Telefonu</td>
+                                    <td>@Model.UserModel.MobileNumber</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Şehir</td>
+                                    <td>@Model.UserModel.City</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Cinsiyet</td>
+                                    <td>@Model.UserModel.Gender</td>
+                                </tr>
+                                @*<tr>
+                                    <td class="fw600">Doğum Tarihi</td>
+                                    <td>@(Model.UserModel.DateOfBirth?.ToString("dd-MM-yyyy"))</td>
+                                </tr>*@
+                                <tr>
+                                    <td class="fw600">Durum</td>
+                                    <td>@Model.UserModel.StatusName</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End of User Detail Table -->
+                    <!-- User User Avatar -->
+                    <div class="col-md-3 col-xs-12 mt-xs-20 mt-md-0">
+                        <div class="avatar-upload">
+                            <div class="avatar-preview">
+                                @if (!String.IsNullOrEmpty(Model.UserModel.PictureUrl))
+                                {
+                                    <div id="imageActual" style="background-image: url(@Url.Static(Model.UserModel.PictureUrl));"></div>
+                                }
+                                else
+                                {
+                                    <div id="imageActual" style="background-image: url(/Content/Files/Avatars/avatar-na.jpg);"></div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of User Avatar -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- User Detail Edit Button -->
+                        <button type="button" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20" data-toggle="modal" data-target="#userDetailModal">Düzenle</button>
+                    </div>
+                </div>
+            </div>
+            <!-- End of User Detail Tab -->
+            <!-- User Contact-Addresses Tab -->
+            <div id="tab1_2" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="w100">Adres Başlığı</th>
+                                    <th class="w100">Adres Adı</th>
+                                    <th style="min-width:350px">Açık Adres</th>
+                                    <th class="w75">İl</th>
+                                    <th class="w75">İlçe</th>
+                                    <th class="w75">Mahalle</th>
+                                    <th class="w75">Zip Kodu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var address in Model.OrganizationAddresses)
+                                {
+                                    <tr>
+                                        <td>@address.Title</td>
+                                        <td>@address.Name</td>
+                                        <td>@address.StreetAddress</td>
+                                        <td>@address.City</td>
+                                        <td>@address.District</td>
+                                        <td>@address.Neighborhood</td>
+                                        <td>@address.ZipCode</td>
+                                        <td><a onclick="editAddress(@address.AddressId)">Düzenle</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of User Contact-Addres Tab -->
+            <!-- User Invoice-Addresses Tab -->
+            <div id="tab1_3" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="w100">Adres Başlığı</th>
+                                    <th>Adres Adı</th>
+                                    <th class="w75">İl</th>
+                                    <th class="w75">İlçe</th>
+                                    <th class="w100">Mahalle</th>
+                                    <th class="w75">Sokak Adı</th>
+                                    <th class="">Vergi Dairesi</th>
+                                    <th class="">Vergi Numarası</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var billing in Model.OrganizationBillingInfos)
+                                {
+                                    <tr>
+                                        <td>@billing.Title</td>
+                                        <td>@billing.Name</td>
+                                        <td>@billing.City</td>
+                                        <td>@billing.District</td>
+                                        <td>@billing.Neighborhood</td>
+                                        <td>@billing.StreetAddress</td>
+                                        <td>@billing.TaxOffice</td>
+                                        <td>@billing.TaxNumber</td>
+                                        <td><a onclick="editBillingInfo(@billing.BillingInfoId)">Düzenle</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of User Invoice-Addres Tab -->
+            <!-- User Roles Tab -->
+            <div id="tab1_4" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="w75">Role Id</th>
+                                    <th class="w100">Rol Adı</th>
+                                    <th class="w150">Rol Açıklaması</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in Model.UserModel.Roles)
+                                {
+                                    <tr>
+                                        <td>@role.RoleId</td>
+                                        <td>@role.RoleName</td>
+                                        <td>@role.RoleDescription</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of User Roles Tab -->
+            <!-- User Consents Tab -->
+            <div id="tab1_5" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="w175">İznin Adı</th>
+                                    <th class="w175">İznin Onay Tarihi</th>
+                                    <th class="w175">Başlangıç Tarihi</th>
+                                    <th class="w175">Bitiş Tarihi</th>
+                                    <th class="w175">İzinin Durumu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var consent in Model.Consents)
+                                {
+                                    <tr>
+                                        <td>@consent.Name</td>
+                                        <td>@consent.Approved.ToString("dd.MM.yyy")</td>
+                                        <td>@consent.ValidFrom.ToString("dd.MM.yyy")</td>
+                                        <td>@consent.ValidUntil.ToString("dd.MM.yyy")</td>
+                                        <td>@consent.State</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of User Consents Tab -->
+            <!-- Order List Tab -->
+            <div id="tab1_6" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="w75">Id</th>
+                                    <th class="w150">Referans Numarası</th>
+                                    <th class="w150">Sipariş Tarihi</th>
+                                    <th class="w150">Sipariş Tutarı</th>
+                                    <th class="w75">Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.Orders)
+                                {
+                                    <tr>
+                                        <td>@order.OrderId</td>
+                                        <td>@order.RefNumber</td>
+                                        <td>@order.OrderDate</td>
+                                        <td>@(order.Total + " " + order.Currency)</td>
+                                        <td>@order.State</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Order List Tab -->
+            <!-- Pricing Info Tab -->
+            <div id="tab1_7" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th class="w75">Id</th>
+                                    <th class="w150">Referans numarası</th>
+                                    <th class="w150">Ödeme Tutarı</th>
+                                    <th class="w150">Ödeme Tarihi</th>
+                                    <th class="w150">Ödeme Kanalı</th>
+                                    <th class="w150">Ödeme Tipi</th>
+                                    <th class="w75">Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var transaction in Model?.Transactions)
+                                {
+                                    <tr>
+                                        <td>@transaction.TransactionId</td>
+                                        <td>@transaction.RefNumber</td>
+                                        <td>@transaction.Amount</td>
+                                        <td>@transaction.TransactionDate</td>
+                                        <td>@transaction.Channel</td>
+                                        <td>@transaction.Type</td>
+                                        <td>@transaction.State</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Pricing Info Tab -->
+            <!-- Active Shopping Cart Tab -->
+            @*<div id="tab1_8" class="tab-pane">
+                    <div class="row">
+
+                    </div>
+                </div>*@
+            <!-- End of Active Shopping Cart Tab -->
+        </div>
+        <!-- End of Tab Content -->
+    </div>
+
+    <button style="display:none;" id="billingInfoButton" type="button" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20" data-toggle="modal" data-target="#resellerBillingInfoModal">Düzenle</button>
+    <button style="display:none;" id="AddressButton" type="button" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-sm-0 mt-sm-20 m-md-0 mt-md-20" data-toggle="modal" data-target="#AddressModal">Düzenle</button>
+    <!-- End of Tab Structure -->
+    <!-- User Details Modal -->
+    <div id="userDetailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" data-validate="true">
+            @using (Html.BeginForm("Details", "Users", FormMethod.Post, new { enctype = "multipart/form-data", @class = "modal-content val-A" }))
+            {
+
+                <!-- Modal Header -->
+                <div class="admin-form theme-primary tab-pane active" id="login2" role="tabpanel">
+                    <div class="panel panel-primary heading-border">
+                        <div class="panel-heading">
+                            <span class="panel-title">
+                                <i class="fa fa-pencil-square"></i>Kullanıcı Bilgileri
+                            </span>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                x
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Modal Header -->
+                <input type="hidden" name="Id" value="@(Model.UserModel.Id) " />
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    @Html.Partial("~/Views/Users/_Edit.cshtml", Model.UserModel)
+                </div>
+                <!-- End of Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="submit" onclick="preSubmit(this)" class="btn btn-primary w150">Kaydet</button>
+                </div>
+            }
+            <!-- End of Modal Footer -->
+        </div>
+    </div>
+    <!-- End of User Details Modal -->
+    <div id="resellerBillingInfoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            @using (Html.BeginForm("UpdateBillingInfo", "Resellers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "modal-content val-A" }))
+            {
+                <!-- Modal Header -->
+                <div class="admin-form theme-primary tab-pane active" id="login2" role="tabpanel">
+                    <div class="panel panel-primary heading-border">
+                        <div class="panel-heading">
+                            <span class="panel-title">
+                                <i class="fa fa-pencil-square"></i>Fatura Adresleri
+                            </span>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Body -->
+                <div id="partialBillingInfo" class="modal-body">
+
+                </div>
+                <!-- End of Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-md-0">Kaydet</button>
+                </div>
+                <!-- End of Modal Footer -->
+
+            }
+        </div>
+    </div>
+    <!-- End of Reseller Details Modal -->
+    <!-- Reseller Contact Address Modal -->
+    <div id="AddressModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            @using (Html.BeginForm("UpdateAddress", "Resellers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "modal-content val-A" }))
+            {
+                <!-- Modal Header -->
+                <div class="admin-form theme-primary tab-pane active" id="login2" role="tabpanel">
+                    <div class="panel panel-primary heading-border">
+                        <div class="panel-heading">
+                            <span class="panel-title">
+                                <i class="fa fa-pencil-square"></i>İletişim Adresleri
+                            </span>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="partialAddress" class="modal-body">
+
+                </div>
+                <!-- End of Modal Body -->
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-block btn-primary w150 m-xs-c mt-xs-20 m-md-0">Kaydet</button>
+                </div>
+
+            }
+        </div>
+    </div>
+</section>
+
+
+@section scripts{
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.js"></script>
+    <script src="/Content/custom/Jquery.Validation/jquery.validate.custom.js"></script>
+    <script src="/Content/vendor/plugins/moment/moment.min.js"></script>
+    <script src="/Content/vendor/plugins/moment/tr.js"></script>
+    <script src="/Content/vendor/plugins/daterange/daterangepicker.js"></script>
+    <script src="/Content/vendor/plugins/datepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Content/vendor/plugins/jquerymask/jquery.maskedinput.min.js"></script>
+    <script src="/Content/custom/js/default.js"></script>
+
+    <script>
+        function getDistinctFromCity(val) {
+
+        // Set selected city name
+        var cityName = $("#selectCity option:selected").html();
+        document.getElementById("City").value = cityName;
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetDistrictByCity","headstone")',
+                data: { path: val },
+                success: function (response) {
+                    if (response.ReturnCode == 200) {
+                        $('#District').find('option').remove().end()
+                        for (var i = 0; i < response.Result.length; i++) {
+                            $('#District').append("<option value=" + response.Result[i].Name + ">" + response.Result[i].Name + "</option>")
+                        }
+                    }
+                }
+            });
+            }
+
+
+        function editBillingInfo(val) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("UpdateBillingInfo","Resellers")',
+                data: { id:val } ,
+                success: function (response) {
+                        $('#partialBillingInfo').empty();
+                        $('#partialBillingInfo').append(response);
+                        $("#billingInfoButton").click()
+                }
+            });
+        }
+
+        function editAddress(val) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("UpdateAddress","Resellers")',
+                data: { id:val } ,
+                success: function (response) {
+                        $('#partialAddress').empty();
+                        $('#partialAddress').append(response);
+                        $("#AddressButton").click()
+                }
+            });
+        }
+
+    </script>
+}

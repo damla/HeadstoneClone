@@ -1,0 +1,72 @@
+﻿@using Headstone.UI.Models.ViewModels
+@{
+    // Try to get the breadcrumb
+    List<BreadcrumbItemViewModel> breadcrumb = null;
+    if (ViewBag.Breadcrumb != null)
+    {
+        breadcrumb = ViewBag.Breadcrumb as List<BreadcrumbItemViewModel>;
+    }
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/Content/Images/Icons/favicon.png">
+
+    @RenderSection("headfirstentry", required: false)
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/Styles/Css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="~/Content/Styles/Css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/Styles/Css/owl.theme.default.css">
+    <link rel="stylesheet" href="~/Content/Styles/Css/style.css">
+    <link rel="stylesheet" href="~/Content/Styles/Css/responsive.css">
+    <link rel="stylesheet" href="~/Content/Styles/Css/extra.css">
+    <!-- JQUERY -->
+    <script src="~/Content/Scripts/jquery-3.3.1.min.js"></script>
+    @RenderSection("head", false)
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status"></div>
+    </div>
+
+    @Html.Action("Header", "Common")
+
+    @Html.Action("Breadcrumb", "Common", new { breadcrumb = breadcrumb })
+
+    @RenderSection("slider", false)
+
+    @RenderBody()
+
+    @Html.Action("Footer", "Common")
+    <!-- Mobile menu start -->
+    <div class="mblmenu-overlay"></div>
+
+    @Html.Action("LeftSidebar", "Common")
+    <!-- Mobile menu end -->
+    @Html.Action("Index", "Campaign")
+
+    <!-- JS -->
+
+    <script src="~/Content/Scripts/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxYLtelXg0PGjeTiFDtlN7nrH_47buDWo"></script>
+    <script src="~/Content/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Content/Scripts/isotope.pkgd.min.js"></script>
+    <script src="~/Content/Scripts/owl.carousel.min.js"></script>
+    <script src="~/Content/Scripts/owl.carousel2.thumbs.min.js"></script>
+    <!-- <script src="~/Content/Scripts/jquery.countdown.min.js"></script>-->
+    <!--<script src="~/Content/Scripts/jquery.ajaxchimp.min.js"></script>-->
+    <script src="~/Content/Scripts/scripts.js"></script>
+    <script src="~/Content/Scripts/extra.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

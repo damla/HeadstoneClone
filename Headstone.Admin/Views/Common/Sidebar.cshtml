@@ -1,0 +1,201 @@
+﻿@{
+    var pageName = Session["PageName"] != null ? Session["PageName"].ToString() : string.Empty;
+}
+
+
+<!-- Start: Sidebar -->
+<aside id="sidebar_left" class="nano nano-primary affix">
+
+    <!-- Start: Sidebar Left Content -->
+    <div class="sidebar-left-content nano-content">
+
+        <!-- Start: Sidebar Menu -->
+        <ul class="nav sidebar-menu">
+            <li class="sidebar-label pt20">Menu</li>
+            <li class="active">
+                <a href="/">
+                    <span class="imoon imoon-home"></span>
+                    <span class="sidebar-title">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sidebar-label pt15">Kullanıcı Yönetimi</li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("users") ? "menu-open" : string.Empty)" href="#">
+                    <span class="imoon imoon-users2"></span>
+                    <span class="sidebar-title">Kullanıcılar</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/users">
+                            <span class="imoon imoon-user4"></span>
+                            Kullanıcı listesi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users/new">
+                            <span class="glyphicons glyphicons-user_add"></span>
+                            Yeni kullanıcı
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-label pt15">Ürün Yönetimi</li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("products") ? "menu-open" : string.Empty)" href="#">
+                    <span class="imoon imoon-books"></span>
+                    <span class="sidebar-title">Ürünler</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/products">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Ürün Listesi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/products/new">
+                            <span class="glyphicons glyphicons-projector"></span>
+                            Yeni ürün
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("categories") ? "menu-open" : string.Empty)" href="#">
+                    <span class="imoon imoon-insert-template"></span>
+                    <span class="sidebar-title">Kategoriler</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/categories">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Kategori Listesi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/categories/new">
+                            <span class="octicon octicon-diff-added"></span>
+                            Yeni Kategori
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("trademarks") ? "menu-open" : string.Empty)" href="#">
+                    <span class="imoon imoon-tags"></span>
+                    <span class="sidebar-title">Markalar</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/trademarks">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Marka Listesi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/trademarks/new">
+                            <span class="octicon octicon-diff-added"></span>
+                            Yeni Marka
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-label pt15">İçerik Yönetimi</li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("content") ? "menu-open" : string.Empty)" href="#">
+                    <span class="octicon octicon-alert"></span>
+                    <span class="sidebar-title">İçerikler</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/contents/customerreviews">
+                            <span class="icon icon-user-comment"></span>
+                            Yorum ve Puan Listesi
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @*<li class="sidebar-label pt15">İletişim Yönetimi</li>
+        <li>
+            <a class="accordion-toggle @(pageName.ToLower().Contains("tickets") ? "menu-open" : string.Empty)" href="#">
+                <span class="fa fa-gears"></span>
+                <span class="sidebar-title">İletişim formları</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="nav sub-nav">
+                <li>
+                    <a href="/tickets">
+                        <span class="fa fa fa-arrows-h"></span>
+                        İletişim Formu Listesi
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+            <li class="sidebar-label pt15">Sipariş Yönetimi</li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("orders") ? "menu-open" : string.Empty)" href="#">
+                    <span class="icon icon-shopping-cart3"></span>
+                    <span class="sidebar-title">Siparişler</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/orders">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Sipariş Listesi
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-label pt15">Ödeme Yönetimi</li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("transactions") ? "menu-open" : string.Empty)" href="#">
+                    <span class="icon icon-mastercard"></span>
+                    <span class="sidebar-title">Ödemeler</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/transactions">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Ödeme Listesi
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sidebar-label pt15">Kampanya Yönetimi</li>
+            <li>
+                <a class="accordion-toggle @(pageName.ToLower().Contains("campaigns") ? "menu-open" : string.Empty)" href="#">
+                    <span class="icon icon-mastercard"></span>
+                    <span class="sidebar-title">Kampanyalar</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="nav sub-nav">
+                    <li>
+                        <a href="/campaigns">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Kampanya Listesi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/campaigns/new">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Yeni Kampanya
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- End: Sidebar Menu -->
+
+    </div>
+    <!-- End: Sidebar Left Content -->
+
+</aside>
+<!-- End: Sidebar -->

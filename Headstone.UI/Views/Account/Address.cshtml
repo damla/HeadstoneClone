@@ -1,0 +1,42 @@
+﻿@model Headstone.UI.Models.ViewModels.AddressViewModel
+@{
+    ViewBag.Title = "Address";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+
+}
+
+
+    <form method="POST" action="adreslerim">
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="row">
+                <h4 class="col-lg-12 col-md-12 col-xs-12">Adreslerim</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                    <div class="card coupon">
+                        <div class="address-body">
+                            <div class="row">
+                                <section>
+                                    <h6 class="card-title coupon-title">@Model.Name</h6>
+                                </section>
+                            </div>
+                            <div class="title-seperator"></div>
+                            <div class="row details">
+                                <div class="coupon-details">
+                                    <div class="address-text">
+                                        <span id="Addresses">
+                                            @Model.StreetAddress
+                                        </span><br />
+                                        <span>@Model.District / @Model.City</span><br />
+                                        @*<span>Telefon No</span>*@
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>

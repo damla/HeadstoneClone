@@ -1,0 +1,216 @@
+@charset "UTF-8";
+.min-vh-500 {
+  min-height: 500px; }
+
+input[data-elem-type=password] {
+  padding-right: 40px; }
+
+.showPasswordLink {
+  display: block;
+  position: absolute;
+  top: calc(50% + 2px);
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  background-image: url("/Content/custom/img/icon-secure.png");
+  background-size: 100% auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  transition: opacity 0.2s; }
+  .showPasswordLink:hover {
+    opacity: 0.75; }
+
+.avatar-upload,
+.resellerLogo-upload,
+.trademarkLogo-upload,
+.productPic-upload {
+  position: relative;
+  max-width: 205px;
+  margin: 0 auto 0 auto; }
+  .avatar-upload .avatar-edit,
+  .avatar-upload .resellerLogo-edit,
+  .avatar-upload .trademarkLogo-edit,
+  .resellerLogo-upload .avatar-edit,
+  .resellerLogo-upload .resellerLogo-edit,
+  .resellerLogo-upload .trademarkLogo-edit,
+  .trademarkLogo-upload .avatar-edit,
+  .trademarkLogo-upload .resellerLogo-edit,
+  .trademarkLogo-upload .trademarkLogo-edit,
+  .productPic-upload .avatar-edit,
+  .productPic-upload .resellerLogo-edit,
+  .productPic-upload .trademarkLogo-edit {
+    position: absolute;
+    right: 25px;
+    z-index: 1;
+    top: 10px; }
+    .avatar-upload .avatar-edit input,
+    .avatar-upload .resellerLogo-edit input,
+    .avatar-upload .trademarkLogo-edit input,
+    .resellerLogo-upload .avatar-edit input,
+    .resellerLogo-upload .resellerLogo-edit input,
+    .resellerLogo-upload .trademarkLogo-edit input,
+    .trademarkLogo-upload .avatar-edit input,
+    .trademarkLogo-upload .resellerLogo-edit input,
+    .trademarkLogo-upload .trademarkLogo-edit input,
+    .productPic-upload .avatar-edit input,
+    .productPic-upload .resellerLogo-edit input,
+    .productPic-upload .trademarkLogo-edit input {
+      display: none; }
+      .avatar-upload .avatar-edit input + label,
+      .avatar-upload .resellerLogo-edit input + label,
+      .avatar-upload .trademarkLogo-edit input + label,
+      .resellerLogo-upload .avatar-edit input + label,
+      .resellerLogo-upload .resellerLogo-edit input + label,
+      .resellerLogo-upload .trademarkLogo-edit input + label,
+      .trademarkLogo-upload .avatar-edit input + label,
+      .trademarkLogo-upload .resellerLogo-edit input + label,
+      .trademarkLogo-upload .trademarkLogo-edit input + label,
+      .productPic-upload .avatar-edit input + label,
+      .productPic-upload .resellerLogo-edit input + label,
+      .productPic-upload .trademarkLogo-edit input + label {
+        display: inline-block;
+        width: 34px;
+        height: 34px;
+        margin-bottom: 0;
+        border-radius: 100%;
+        background: #ffffff;
+        border: 1px solid transparent;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        font-weight: normal;
+        transition: all 0.2s ease-in-out; }
+        .avatar-upload .avatar-edit input + label:hover,
+        .avatar-upload .resellerLogo-edit input + label:hover,
+        .avatar-upload .trademarkLogo-edit input + label:hover,
+        .resellerLogo-upload .avatar-edit input + label:hover,
+        .resellerLogo-upload .resellerLogo-edit input + label:hover,
+        .resellerLogo-upload .trademarkLogo-edit input + label:hover,
+        .trademarkLogo-upload .avatar-edit input + label:hover,
+        .trademarkLogo-upload .resellerLogo-edit input + label:hover,
+        .trademarkLogo-upload .trademarkLogo-edit input + label:hover,
+        .productPic-upload .avatar-edit input + label:hover,
+        .productPic-upload .resellerLogo-edit input + label:hover,
+        .productPic-upload .trademarkLogo-edit input + label:hover {
+          background: #f1f1f1;
+          border-color: #d6d6d6; }
+        .avatar-upload .avatar-edit input + label::after,
+        .avatar-upload .resellerLogo-edit input + label::after,
+        .avatar-upload .trademarkLogo-edit input + label::after,
+        .resellerLogo-upload .avatar-edit input + label::after,
+        .resellerLogo-upload .resellerLogo-edit input + label::after,
+        .resellerLogo-upload .trademarkLogo-edit input + label::after,
+        .trademarkLogo-upload .avatar-edit input + label::after,
+        .trademarkLogo-upload .resellerLogo-edit input + label::after,
+        .trademarkLogo-upload .trademarkLogo-edit input + label::after,
+        .productPic-upload .avatar-edit input + label::after,
+        .productPic-upload .resellerLogo-edit input + label::after,
+        .productPic-upload .trademarkLogo-edit input + label::after {
+          content: "\f040";
+          font-family: "FontAwesome";
+          color: #757575;
+          position: absolute;
+          top: 10px;
+          left: 0;
+          right: 0;
+          text-align: center;
+          margin: auto; }
+  .avatar-upload .avatar-preview,
+  .avatar-upload .resellerLogo-preview,
+  .avatar-upload .trademarkLogo-preview,
+  .avatar-upload .productPic-preview,
+  .resellerLogo-upload .avatar-preview,
+  .resellerLogo-upload .resellerLogo-preview,
+  .resellerLogo-upload .trademarkLogo-preview,
+  .resellerLogo-upload .productPic-preview,
+  .trademarkLogo-upload .avatar-preview,
+  .trademarkLogo-upload .resellerLogo-preview,
+  .trademarkLogo-upload .trademarkLogo-preview,
+  .trademarkLogo-upload .productPic-preview,
+  .productPic-upload .avatar-preview,
+  .productPic-upload .resellerLogo-preview,
+  .productPic-upload .trademarkLogo-preview,
+  .productPic-upload .productPic-preview {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #f8f8f8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); }
+    .avatar-upload .avatar-preview > div,
+    .avatar-upload .resellerLogo-preview > div,
+    .avatar-upload .trademarkLogo-preview > div,
+    .avatar-upload .productPic-preview > div,
+    .resellerLogo-upload .avatar-preview > div,
+    .resellerLogo-upload .resellerLogo-preview > div,
+    .resellerLogo-upload .trademarkLogo-preview > div,
+    .resellerLogo-upload .productPic-preview > div,
+    .trademarkLogo-upload .avatar-preview > div,
+    .trademarkLogo-upload .resellerLogo-preview > div,
+    .trademarkLogo-upload .trademarkLogo-preview > div,
+    .trademarkLogo-upload .productPic-preview > div,
+    .productPic-upload .avatar-preview > div,
+    .productPic-upload .resellerLogo-preview > div,
+    .productPic-upload .trademarkLogo-preview > div,
+    .productPic-upload .productPic-preview > div {
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      background-position: center; }
+
+.select2-white + .select2-container .select2-selection--single,
+.select2-white + .select2-container .select2-selection__rendered {
+  color: #555;
+  border-color: #ddd;
+  background-color: #fff; }
+
+#sortable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%; }
+  #sortable li {
+    display: flex;
+    align-items: center;
+    margin: 0 0 5px 0;
+    padding: 0 0 0 15px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #f0f0f0; }
+    #sortable li:before {
+      content: "≡";
+      position: absolute;
+      right: 20px;
+      display: block;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      opacity: 0.3;
+      transition: opacity 0.4s; }
+    #sortable li:hover {
+      background-color: #f9f9f9; }
+      #sortable li:hover:before {
+        opacity: 1; }
+    #sortable li.ui-sortable-helper {
+      background-color: #4a89dc;
+      color: #fff;
+      opacity: 0.8; }
+    #sortable li.ui-state-highlight {
+      height: 40px;
+      background-color: #fffed2;
+      border: 1px solid #fffed2; }
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .avatar-upload,
+  .resellerLogo-upload,
+  .trademarkLogo-upload,
+  .productPic-upload {
+    margin: 0 0 0 35px; } }
+/* Medium devices (desktops, 992px and up) */
+/* Large devices (large desktops, 1200px and up) */
+
+/*# sourceMappingURL=form.css.map */

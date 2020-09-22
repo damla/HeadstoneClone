@@ -1,0 +1,189 @@
+﻿@model Headstone.AI.Models.ViewModels.DisputeDetailViewModel
+@{
+    ViewBag.Title = "Problemli Sipariş Detayları";
+    Session["PageName"] = "disputedetails";
+}
+
+@section head{
+    <link rel="stylesheet" type="text/css" href="/Content/custom/Magnific/magnific.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/plugins/magnific/magnific-popup.css">
+}
+
+
+<section id="content">
+    <!-- Page Intro -->
+    <div class="mb20">
+        <h4>@Model.ItemName</h4>
+        <hr class="alt short">
+        <div class="row">
+            <div class="col-md-8">
+                @*<p class="text-muted">Note that the page header above may not be needed since it's been already included in the breadcrumb section.</p>
+                    <p class="text-muted">Also, type some introductory text about current page content. Lorem ipsum dolor sit amet,  is nisi ut aliquip ex ea commodo consectetur adipi sicing elit, sed do eiusmod tempor incididu ut labore et is nisi ut aliquip ex ea commodo dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exetation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>*@
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Intro -->
+    <!-- Tab Structure -->
+    <div class="tab-block mb25">
+        <!-- Tab Navi Items -->
+        <ul class="nav nav-tabs tabs-border">
+            <li class="active">
+                <a href="#tab1_1" data-toggle="tab">Temel Bilgiler</a>
+            </li>
+            <li>
+                <a href="#tab1_2" data-toggle="tab">Mesajlar</a>
+            </li>
+            @*<li>
+                    <a href="#tab1_3" data-toggle="tab">Fatura Adresleri</a>
+                </li>
+                <li>
+                    <a href="#tab1_4" data-toggle="tab">Kullanıcı Rolleri</a>
+                </li>
+                <li>
+                    <a href="#tab1_5" data-toggle="tab">Kullanıcı İzinleri</a>
+                </li>
+                <li>
+                    <a href="#tab1_6" data-toggle="tab">Siparişler</a>
+                </li>
+                <li>
+                    <a href="#tab1_7" data-toggle="tab">Ücretlendirme Bilgilendirmeleri</a>
+                </li>*@
+            @*<li>
+                    <a href="#tab1_8" data-toggle="tab">Aktif Alışveriş Sepeti</a>
+                </li>*@
+        </ul>
+        <!-- End of Tab Navi Items -->
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- User Detail Tab -->
+            <div id="tab1_1" class="tab-pane active">
+                <div class="row mb25">
+                    <div class="col-xl-6 col-md-8 col-xs-12">
+                        <!-- Dispute Summary Panel -->
+                        <table class="table table-hover" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td class="fw600 w175">Şikayet ID </td>
+                                    <td><strong>@Model.Dispute.DisputeId</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600 w125">Sipariş ID</td>
+                                    <td><a href="/Orders/Details/@Model.Dispute.OrderId">@Model.Dispute.OrderId</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Şikayetçi</td>
+                                    <td><a href="/Resellers/Details/@Model.CompliantOrganization.OrganizationId">@Model.CompliantOrganization.CompanyName</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Şikayet Edilen</td>
+                                    <td><a href="/Resellers/Details/@Model.CompiledOrganization.OrganizationId">@Model.CompiledOrganization.CompanyName</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Ürün Adı</td>
+                                    <td>@Model.ItemName</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Açıklama</td>
+                                    <td>@Model.Dispute.Body</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Ürün Toplam Fiyatı</td>
+                                    <td>@Model.ItemPrice</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Şikayet Tipi</td>
+                                    <td>@Model.Dispute.Type</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw600">Görseller</td>
+                                    <td class="zoom-gallery zoom-gallery-type-A">
+                                        <a href="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_b.jpg" style="background-image:url('http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg');" class="image-popup-vertical-fit">
+                                            <img src="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg">
+                                        </a>
+                                        <a href="http://farm9.staticflickr.com/8379/8588290361_ecf8c27021_b.jpg" style="background-image:url('http://farm9.staticflickr.com/8379/8588290361_ecf8c27021_s.jpg');" class="image-popup-vertical-fit">
+                                            <img src="http://farm9.staticflickr.com/8379/8588290361_ecf8c27021_s.jpg">
+                                        </a>
+                                        <a href="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_b.jpg" style="background-image:url('http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg');" class="image-popup-vertical-fit">
+                                            <img src="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg">
+                                        </a>
+                                        <a href="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_b.jpg" style="background-image:url('http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg');" class="image-popup-vertical-fit">
+                                            <img src="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg">
+                                        </a>
+                                        <a href="http://farm9.staticflickr.com/8379/8588290361_ecf8c27021_b.jpg" style="background-image:url('http://farm9.staticflickr.com/8379/8588290361_ecf8c27021_s.jpg');" class="image-popup-vertical-fit">
+                                            <img src="http://farm9.staticflickr.com/8379/8588290361_ecf8c27021_s.jpg">
+                                        </a>
+                                        <a href="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_b.jpg" style="background-image:url('http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg');" class="image-popup-vertical-fit">
+                                            <img src="http://farm9.staticflickr.com/8241/8589392310_7b6127e243_s.jpg">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- End of Dispute Summary Panel -->
+                    </div>
+                </div>
+            </div>
+            <div id="tab1_2" class="tab-pane">
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- Dispute Messages Panel -->
+                        @*@using (Html.BeginForm("AddDisputeMessage", "Tickets", FormMethod.Post))*@
+
+                        <div class="panel">
+
+                            <div class="panel-body chat-widget dark panel-scroller scroller-lg pn">
+
+                                <div id="partial">
+                                    @Html.Partial("_DisputeMessages", Model)
+                                </div>
+                               
+
+                                
+                            </div>
+                            <div class="panel-footer">
+
+                                <div class="input-group">
+                                    <input type="hidden" name="DisputeId" value="@Model.Dispute.DisputeId" />
+                                    <input type="hidden" name="UserId" value="@Model.CurrentUser.Id" />
+                                    <input type="text" id="message" class="form-control" name="Body" placeholder="Mesajınızı yazınız...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-block btn-primary" onclick="saveDispute();">Gönder ve süreci bitir</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Dispute Messages Panel -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section scripts{
+
+    <script>
+        function saveDispute() {
+             $('#disputeMsg').find('option').add().end()
+            // msg is whatever URL you need to call
+            var msg = document.getElementById("message").value
+
+            $.ajax({
+                type: "POST",
+                url:'@Url.Action("GetMessages", "Tickets")',
+                data: { id:@Model.Dispute.DisputeId, msg: msg },
+                success: function (response) {
+                    $('#partial').empty();
+                    $('#partial').append(response);
+                    document.getElementById('partial').scrollIntoView(false);
+                    window.scrollTo(0, 130);
+                    alert("Mesajınız taraflara iletildi ve süreç kapandı");
+                   
+                }
+            });
+            
+        }
+    </script>
+}
